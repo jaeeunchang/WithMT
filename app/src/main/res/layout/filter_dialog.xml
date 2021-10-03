@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="150dp"
+    android:layout_width="410dp"
+    android:layout_height="540dp"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_edge_radius">
+
+    <RelativeLayout
+        android:id="@+id/filter_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            android:text="필터"/>
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="28dp"
+            android:background="@drawable/ic_x_lg"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="[ 성별 ]"/>
+
+        <RadioGroup
+            android:id="@+id/filterGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <RadioButton
+                android:id="@+id/f1a1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="여자만" />
+
+            <RadioButton
+                android:id="@+id/f1a2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="18dp"
+                android:text="남자만" />
+
+            <RadioButton
+                android:id="@+id/f1a3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="18dp"
+                android:text="상관없음" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="[ 나이 ]"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <CheckBox
+                android:id="@+id/f2a1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="10대"/>
+
+            <CheckBox
+                android:id="@+id/f2a2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textSize="18dp"
+                android:text="20대"/>
+
+            <CheckBox
+                android:id="@+id/f2a3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textSize="18dp"
+                android:text="30대"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <CheckBox
+                android:id="@+id/f2a4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="40대"/>
+
+            <CheckBox
+                android:id="@+id/f2a5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textSize="18dp"
+                android:text="50대"/>
+
+            <CheckBox
+                android:id="@+id/f2a6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textSize="18dp"
+                android:text="60대 이상"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:text="[ 날짜 ]"/>
+
+        <EditText
+            android:id="@+id/filterDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="26dp"
+            android:text="2021/00/00"/>
+        
+        <Button
+            android:id="@+id/btn_fsearch"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/edge_radius"
+            android:textColor="#ffffff"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:text="조회하기"/>
+    </LinearLayout>
+</LinearLayout>
