@@ -12,6 +12,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.cookandroid.withmt.View.MywritingView;
+
 public class MyPage extends AppCompatActivity {
 
     Dialog logout_dialog, logout_dialog2;
@@ -47,7 +49,7 @@ public class MyPage extends AppCompatActivity {
         writing_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MywritingView.class);
                 startActivity(intent);
             }
         });

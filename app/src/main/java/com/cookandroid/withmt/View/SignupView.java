@@ -2,6 +2,7 @@ package com.cookandroid.withmt.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.cookandroid.withmt.MainActivity;
+import com.cookandroid.withmt.PreferenceResearch;
 import com.cookandroid.withmt.R;
 
 public class SignupView extends AppCompatActivity {
@@ -40,7 +43,8 @@ public class SignupView extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), PreferenceResearch.class);
+                startActivity(intent);
             }
         });
 
