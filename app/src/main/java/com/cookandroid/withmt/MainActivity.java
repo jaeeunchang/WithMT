@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.cookandroid.withmt.View.WritingView;
+
 public class MainActivity extends AppCompatActivity {
 
     Dialog filter_dialog;
@@ -43,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 show_filter();
+            }
+        });
+
+        btn_write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WritingView.class);
+                startActivity(intent);
             }
         });
     }

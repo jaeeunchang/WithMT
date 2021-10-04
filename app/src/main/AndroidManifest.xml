@@ -10,14 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WithMt">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".PreferenceResearch" />
+        <activity android:name=".MyPage" />
+        <activity android:name=".PreferenceChange" />
+        <activity android:name=".View.LoginView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreferenceResearch" />
-        <activity android:name=".MyPage" />
-        <activity android:name=".PreferenceChange" />
+        <activity android:name=".View.MywritingView"/>
+        <activity android:name=".View.SignupView"/>
+        <activity android:name=".View.WritingView"/>
+        <activity android:name=".View.WrittenpageView"/>
     </application>
 </manifest>
