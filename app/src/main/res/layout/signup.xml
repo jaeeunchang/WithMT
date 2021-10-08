@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#57AE89"
-    tools:context=".View.SignupView">
+    tools:context=".SignUp.SignupView">
 
     <LinearLayout
         android:layout_weight="1"
@@ -38,7 +38,12 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_x_lg"/>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="*회원가입 후 개인정보 수정은 불가능합니다.*"
+            android:textColor="@android:color/holo_red_dark"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +108,7 @@
                 android:textSize="14dp"
                 android:text="닉네임" />
             <EditText
-                android:id="@+id/newName"
+                android:id="@+id/editName"
                 android:layout_width="180dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
@@ -154,6 +159,7 @@
                 android:textSize="14dp"
                 android:text="성별"/>
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -231,6 +237,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginRight="17dp"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="14dp"
