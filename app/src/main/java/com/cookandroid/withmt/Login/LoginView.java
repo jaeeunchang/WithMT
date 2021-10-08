@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.cookandroid.withmt.MainActivity;
+import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
 
@@ -34,7 +34,7 @@ public class LoginView extends AppCompatActivity {
 
             //로그인 클릭 시
             case R.id.btnLogin:
-                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent = new Intent(getApplicationContext(), MainPageView.class);
                 startActivity(intent);
                 break;
         }

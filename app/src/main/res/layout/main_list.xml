@@ -20,7 +20,7 @@
         android:layout_height="20dp"
         android:layout_below="@+id/title"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/calendar_icon" />
+        android:src="@drawable/ic_calendar_color" />
 
     <TextView
         android:id="@+id/date"

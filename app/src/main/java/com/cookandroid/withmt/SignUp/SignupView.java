@@ -15,8 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cookandroid.withmt.MainActivity;
-import com.cookandroid.withmt.PreferenceResearch;
+import com.cookandroid.withmt.PreferenceCheck.PreferenceResearchView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Writing.WritingView;
 
@@ -58,16 +57,18 @@ public class SignupView extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(editName.getText().toString().equals("")||editId.getText().toString().equals("")||
-//                        editPW.getText().toString().equals("")||confirmPW.getText().toString().equals("")||
-//                        !rdFemale.isChecked()||!rdMale.isChecked()){
-//            Toast tmsg = Toast.makeText(SignupView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
+                if(editName.getText().toString().equals("") ||
+                        editId.getText().toString().equals("") ||
+                        editPW.getText().toString().equals("") ||
+                        confirmPW.getText().toString().equals("") ||
+                        radioGroup.getCheckedRadioButtonId() == -1){
+                    Toast tmsg = Toast.makeText(SignupView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
 //                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
-//                    tmsg.show();
-//                }
-//                else{ }
-                Intent intent = new Intent(getApplicationContext(), PreferenceResearch.class);
-                startActivity(intent);
+                    tmsg.show();
+                }
+                else{ Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
+                    startActivity(intent);}
+
             }
         });
 
