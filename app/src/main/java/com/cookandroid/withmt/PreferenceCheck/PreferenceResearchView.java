@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
+import com.cookandroid.withmt.SignUp.SignupView;
 
 public class PreferenceResearchView extends AppCompatActivity {
 
@@ -61,6 +63,8 @@ public class PreferenceResearchView extends AppCompatActivity {
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
 
 
+
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +76,10 @@ public class PreferenceResearchView extends AppCompatActivity {
                         (!cb_friend.isChecked() && !cb_hiking.isChecked()))
                 {
                     // no radio buttons are checked
-                    Toast.makeText(getApplicationContext(), "답을 다 입력하지 않았습니다.", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "답을 다 입력하지 않았습니다.", Toast.LENGTH_LONG).show();
+                    Toast tmsg = Toast.makeText(getApplicationContext(), "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
+                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
+                    tmsg.show();
                 }
                 else
                 {   // one of the radio buttons is checked

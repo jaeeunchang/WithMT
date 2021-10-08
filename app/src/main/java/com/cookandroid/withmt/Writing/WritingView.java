@@ -78,9 +78,9 @@ public class WritingView extends AppCompatActivity {
             public void onClick(View view) {
 
                 //내용 미입력 시 토스트
-                if(title.getText().toString().equals("제목을 입력해주세요.")||picDate.getText().toString().equals("날짜를 선택하세요.")||
-                        num.getText().toString().equals("")||openkakao.getText().toString().equals("오픈 채팅방 링크를 입력해주세요.")||
-                        substacne.getText().toString().equals("모집을 위한 게시글 내용을 작성해주세요.\\nex) OO산 같이 가실 2-30대 구합니다.")){
+                if(title.getText().toString().equals("")||picDate.getText().toString().equals("")||
+                        num.getText().toString().equals("")||openkakao.getText().toString().equals("")||
+                        substacne.getText().toString().equals("")){
                     Toast tmsg = Toast.makeText(WritingView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
                     tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                     tmsg.show();
