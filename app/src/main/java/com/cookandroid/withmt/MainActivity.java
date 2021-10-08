@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-import com.cookandroid.withmt.View.WritingView;
+import com.cookandroid.withmt.Writing.WritingView;
 
 public class MainActivity extends AppCompatActivity {
 

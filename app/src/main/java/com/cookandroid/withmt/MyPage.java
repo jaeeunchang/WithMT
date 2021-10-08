@@ -12,7 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.cookandroid.withmt.View.MywritingView;
+import com.cookandroid.withmt.MyWriting.MywritingView;
 
 public class MyPage extends AppCompatActivity {
 

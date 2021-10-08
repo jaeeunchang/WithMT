@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.MywritingView">
+    tools:context=".MyWriting.MywritingView">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -22,7 +22,7 @@
             android:text="내가 작성한 글"/>
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:id="@+id/llayout"
+        android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
