@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WithMt">
-        <activity android:name=".Login.LoginView" >
+        <activity android:name=".Login.LoginView" />
         <activity android:name=".MainPage.MainPageView" />
         <activity android:name=".PreferenceCheck.PreferenceResearchView" />
         <activity android:name=".MyPage.MyPageView" />

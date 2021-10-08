@@ -16,7 +16,7 @@ import com.cookandroid.withmt.MyWriting.MywritingView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.PreferenceChangeView;
 import com.cookandroid.withmt.R;
-import com.cookandroid.withmt.View.LoginView;
+import com.cookandroid.withmt.Login.LoginView;
 
 public class MyPageView extends AppCompatActivity {
 

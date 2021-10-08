@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.cookandroid.withmt.MyPage.MyPageView;
 import com.cookandroid.withmt.R;
-import com.cookandroid.withmt.View.WritingView;
+import com.cookandroid.withmt.Writing.WritingView;
 
 import java.util.Calendar;
 

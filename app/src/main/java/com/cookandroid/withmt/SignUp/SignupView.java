@@ -57,7 +57,6 @@ public class SignupView extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
 //                if(editName.getText().toString().equals("")||editId.getText().toString().equals("")||
 //                        editPW.getText().toString().equals("")||confirmPW.getText().toString().equals("")||
 //                        !rdFemale.isChecked()||!rdMale.isChecked()){
@@ -66,7 +65,7 @@ public class SignupView extends AppCompatActivity {
 //                    tmsg.show();
 //                }
 //                else{ }
-                Intent intent = new Intent(getApplicationContext(), PreferenceResearch.class);
+                Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
                 startActivity(intent);
             }
         });
