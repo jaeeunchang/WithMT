@@ -26,9 +26,9 @@ public class SignupView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
-        EditText editName = (EditText) findViewById(R.id.editName);
-        EditText editId = (EditText) findViewById(R.id.editId);
-        EditText editPW = (EditText) findViewById(R.id.editPW);
+        EditText editName = (EditText) findViewById(R.id.newName);
+        EditText editId = (EditText) findViewById(R.id.newId);
+        EditText editPW = (EditText) findViewById(R.id.newPW);
         EditText confirmPW = (EditText) findViewById(R.id.confirmPW);
 
         Button btnNew = (Button) findViewById(R.id.btnNew);

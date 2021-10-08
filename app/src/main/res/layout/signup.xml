@@ -108,7 +108,7 @@
                 android:textSize="14dp"
                 android:text="닉네임" />
             <EditText
-                android:id="@+id/editName"
+                android:id="@+id/newName"
                 android:layout_width="180dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="5dp"
