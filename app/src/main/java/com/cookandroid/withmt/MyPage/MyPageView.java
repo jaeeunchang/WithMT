@@ -1,4 +1,4 @@
-package com.cookandroid.withmt;
+package com.cookandroid.withmt.MyPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,9 +12,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.cookandroid.withmt.MainPage.MainPageView;
+import com.cookandroid.withmt.PreferenceChangeView;
+import com.cookandroid.withmt.R;
+import com.cookandroid.withmt.View.LoginView;
 import com.cookandroid.withmt.View.MywritingView;
 
-public class MyPage extends AppCompatActivity {
+public class MyPageView extends AppCompatActivity {
 
     Dialog logout_dialog, logout_dialog2;
     Button btn_back;
@@ -30,18 +34,18 @@ public class MyPage extends AppCompatActivity {
         LinearLayout change_preference = (LinearLayout) findViewById(R.id.change_preference);
         LinearLayout logout = (LinearLayout) findViewById(R.id.logout);
 
-        logout_dialog = new Dialog(MyPage.this);
+        logout_dialog = new Dialog(MyPageView.this);
         logout_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
         logout_dialog.setContentView(R.layout.logout_dialog);
 
-        logout_dialog2 = new Dialog(MyPage.this);
+        logout_dialog2 = new Dialog(MyPageView.this);
         logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
         logout_dialog2.setContentView(R.layout.logout_dialog2);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainPageView.class);
                 startActivity(intent);
             }
         });
@@ -57,7 +61,7 @@ public class MyPage extends AppCompatActivity {
         change_preference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PreferenceChange.class);
+                Intent intent = new Intent(getApplicationContext(), PreferenceChangeView.class);
                 startActivity(intent);
             }
         });
@@ -103,6 +107,8 @@ public class MyPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout_dialog2.dismiss(); // 다이얼로그 닫기
+                Intent intent = new Intent(getApplicationContext(), LoginView.class);
+                startActivity(intent);
             }
         });
     }
