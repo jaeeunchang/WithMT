@@ -53,48 +53,42 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
+        <Spinner
+            android:id="@+id/menu_spinner"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:entries="@array/main_menu" />
+
         <TextView
-            android:id="@+id/show_filter"
+            android:id="@+id/filter_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:textColor="#57ae89"
-            android:text="여자만 / 20대 / 2021-10-11"/>
-
-<!--        <TextView-->
-<!--            android:id="@+id/show_filter"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize=""-->
-<!--            android:text="여자만/2021-10-11"/>-->
-<!--        -->
-<!--        <TextView-->
-<!--            android:id="@+id/show_filter2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/show_filter"-->
-<!--            android:textSize=""-->
-<!--            android:text="10,20,30,40,50,60대 이상"/>-->
-
-
-        <Spinner
-            android:id="@+id/menu_spinner"
-            android:layout_width="130dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="60dp"
-            android:entries="@array/test" />
+            android:textColor="@color/black"
+            android:hint="2021-00-00"/>
+
+<!--        <Spinner-->
+<!--            android:id="@+id/menu_spinner"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginRight="60dp"-->
+<!--            android:entries="@array/main_menu" />-->
 
         <Button
-            android:id="@+id/btn_filter"
-            android:background="@drawable/ic_filter"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:id="@+id/btn_calendar"
+            android:background="@drawable/ic_calendar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp" />
+             />
     </RelativeLayout>
 
     <RelativeLayout

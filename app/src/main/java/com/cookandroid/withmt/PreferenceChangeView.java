@@ -1,22 +1,24 @@
 package com.cookandroid.withmt;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import androidx.appcompat.widget.Toolbar;
 
-public class PreferenceResearch extends AppCompatActivity {
+import com.cookandroid.withmt.MyPage.MyPageView;
+
+public class PreferenceChangeView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preference_research);
+        setContentView(R.layout.preference_change);
 
-        Button btn_submit = (Button) findViewById(R.id.btn_submit);
+        Button btn_change = (Button) findViewById(R.id.btn_change);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -24,10 +26,10 @@ public class PreferenceResearch extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white);
 
-        btn_submit.setOnClickListener(new View.OnClickListener() {
+        btn_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyPageView.class);
                 startActivity(intent);
             }
         });

@@ -15,8 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cookandroid.withmt.MainActivity;
-import com.cookandroid.withmt.PreferenceResearch;
+import com.cookandroid.withmt.PreferenceCheck.PreferenceResearchView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Writing.WritingView;
 
@@ -66,7 +65,7 @@ public class SignupView extends AppCompatActivity {
 //                    tmsg.show();
 //                }
 //                else{ }
-                Intent intent = new Intent(getApplicationContext(), PreferenceResearch.class);
+                Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
                 startActivity(intent);
             }
         });

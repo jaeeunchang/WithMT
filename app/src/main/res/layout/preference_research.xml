@@ -1,275 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#57ae89">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="22dp"
-                android:textColor="#ffffff"
-                android:text="운동 능력 및 취향" />
-        </androidx.appcompat.widget.Toolbar>
+        android:layout_height="?attr/actionBarSize"
+        android:background="#57ae89">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="18dp"
-            android:textColor="#000000"
-            android:text="1. 스스로 생각하기에 본인의 등산 수준은?"/>
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:text="운동 능력 및 취향 조사" />
+    </androidx.appcompat.widget.Toolbar>
 
-        <RadioGroup
-            android:id="@+id/rGroup1"
-            android:layout_marginLeft="43dp"
-            android:layout_marginBottom="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/q1r1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="입문자"/>
-
-            <RadioButton
-                android:id="@+id/q1r2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="경험자"/>
-
-            <RadioButton
-                android:id="@+id/q1r3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="숙련자"/>
-
-            <RadioButton
-                android:id="@+id/q1r4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="전문가"/>
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="18dp"
-            android:textColor="#000000"
-            android:text="2. 본인이 원하는 등산 코스의 난이도는?"/>
-
-        <RadioGroup
-            android:id="@+id/rGroup2"
-            android:layout_marginLeft="43dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/q2r1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="매우 쉬움"/>
-
-            <RadioButton
-                android:id="@+id/q2r2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="쉬움"/>
-
-            <RadioButton
-                android:id="@+id/q2r3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="보통"/>
-
-            <RadioButton
-                android:id="@+id/q2r4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="어려움"/>
-
-            <RadioButton
-                android:id="@+id/q2r5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="매우 어려움"/>
-        </RadioGroup>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginBottom="40dp"
-            android:src="@drawable/research_example" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="18dp"
-            android:textColor="#000000"
-            android:text="3. 스스로 판단하기에 평균적인 본인의 운동량은?"/>
-
-        <RadioGroup
-            android:id="@+id/rGroup3"
-            android:layout_marginLeft="43dp"
-            android:layout_marginBottom="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/q3r1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="활동 안함 : 전혀 운동을 하지않음"/>
-
-            <RadioButton
-                android:id="@+id/q3r2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="가벼운 활동 : 가벼운 운동이나 스포츠1~2일"/>
-
-            <RadioButton
-                android:id="@+id/q3r3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="보통 활동 : 적당한 운동이나 스포츠 3~4일"/>
-
-            <RadioButton
-                android:id="@+id/q3r4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="매우 활동 : 강렬한 운동이나 스포츠 5~7일"/>
-
-            <RadioButton
-                android:id="@+id/q3r5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="심한 활동 : 매우 심한 운동이나 물리적 작업"/>
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="18dp"
-            android:textColor="#000000"
-            android:text="4. 한 달 기준 본인의 등산 빈도는?"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="12dp"
-            android:text="등산(편도) 소요 시간이 40분 이내인 산은 제외하고 계산해주세요"
-            android:textColor="#6379e8" />
-
-        <RadioGroup
-            android:id="@+id/rGroup4"
-            android:layout_marginLeft="43dp"
-            android:layout_marginBottom="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/q4r1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="적음(0~2회)"/>
-
-            <RadioButton
-                android:id="@+id/q4r2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="보통(3~4회)"/>
-
-            <RadioButton
-                android:id="@+id/q4r3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="많음(5회 이상)"/>
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="18dp"
-            android:textColor="#000000"
-            android:text="5. 등산 모임에서 본인이 중요시 여기는것은?"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginBottom="7dp"
-            android:textSize="12dp"
-            android:text="둘 다 해당되는 경우, 중복 선택도 가능합니다."
-            android:textColor="#6379e8" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/rGroup5"
-            android:layout_marginLeft="43dp"
-            android:layout_marginBottom="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/q5c1"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="친목 위주"/>
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:text="1. 스스로 생각하기에 본인의 등산 수준은?"/>
 
-            <CheckBox
-                android:id="@+id/q5c2"
+            <RadioGroup
+                android:id="@+id/rGroup1"
+                android:layout_marginLeft="43dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/q1r1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="입문자"/>
+
+                <RadioButton
+                    android:id="@+id/q1r2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="경험자"/>
+
+                <RadioButton
+                    android:id="@+id/q1r3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="숙련자"/>
+
+                <RadioButton
+                    android:id="@+id/q1r4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전문가"/>
+            </RadioGroup>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="등산 위주"/>
+                android:textStyle="bold"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:text="2. 본인이 원하는 등산 코스의 난이도는?"/>
+
+            <RadioGroup
+                android:id="@+id/rGroup2"
+                android:layout_marginLeft="43dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/q2r1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="매우 쉬움"/>
+
+                <RadioButton
+                    android:id="@+id/q2r2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="쉬움"/>
+
+                <RadioButton
+                    android:id="@+id/q2r3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보통"/>
+
+                <RadioButton
+                    android:id="@+id/q2r4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="어려움"/>
+
+                <RadioButton
+                    android:id="@+id/q2r5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="매우 어려움"/>
+            </RadioGroup>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/research_example" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:text="3. 스스로 판단하기에 평균적인 본인의 운동량은?"/>
+
+            <RadioGroup
+                android:id="@+id/rGroup3"
+                android:layout_marginLeft="43dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/q3r1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="활동 안함 : 전혀 운동을 하지않음"/>
+
+                <RadioButton
+                    android:id="@+id/q3r2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="가벼운 활동 : 가벼운 운동이나 스포츠1~2일"/>
+
+                <RadioButton
+                    android:id="@+id/q3r3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보통 활동 : 적당한 운동이나 스포츠 3~4일"/>
+
+                <RadioButton
+                    android:id="@+id/q3r4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="매우 활동 : 강렬한 운동이나 스포츠 5~7일"/>
+
+                <RadioButton
+                    android:id="@+id/q3r5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="심한 활동 : 매우 심한 운동이나 물리적 작업"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:text="4. 한 달 기준 본인의 등산 빈도는?"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="12dp"
+                android:text="등산(편도) 소요 시간이 40분 이내인 산은 제외하고 계산해주세요"
+                android:textColor="#6379e8" />
+
+            <RadioGroup
+                android:id="@+id/rGroup4"
+                android:layout_marginLeft="43dp"
+                android:layout_marginBottom="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/q4r1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="적음(0~2회)"/>
+
+                <RadioButton
+                    android:id="@+id/q4r2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보통(3~4회)"/>
+
+                <RadioButton
+                    android:id="@+id/q4r3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="많음(5회 이상)"/>
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                android:text="5. 등산 모임에서 본인이 중요시 여기는것은?"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="7dp"
+                android:textSize="12dp"
+                android:text="한 개 이상 선택해주세요(중복 선택도 가능합니다.)"
+                android:textColor="#6379e8" />
+
+            <LinearLayout
+                android:id="@+id/rGroup5"
+                android:layout_marginLeft="43dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/cb_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="친목 위주"/>
+
+                <CheckBox
+                    android:id="@+id/cb_hiking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="등산 위주"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="220dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="#57ae89"
+                android:background="@drawable/edge_radius"
+                android:textColor="#ffffff"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:text="제출하기"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="#57ae89"
-            android:background="@drawable/edge_radius"
-            android:textColor="#ffffff"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:text="제출완료"/>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

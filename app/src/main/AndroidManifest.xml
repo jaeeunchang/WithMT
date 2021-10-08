@@ -9,13 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WithMt">
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".PreferenceResearch" />
-        <activity android:name=".MyPage" />
-        <activity android:name=".PreferenceChange" />
-        <activity android:name=".Login.LoginView" >
+        <activity android:name=".Login.LoginView" />
+        <activity android:name=".MainPage.MainPageView" />
+        <activity android:name=".PreferenceCheck.PreferenceResearchView" />
+        <activity android:name=".MyPage.MyPageView" />
+        <activity android:name=".PreferenceChangeView" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
