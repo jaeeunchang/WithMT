@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WithMt">
+        <activity android:name=".Login.LoginView" >
         <activity android:name=".MainPage.MainPageView" />
         <activity android:name=".PreferenceCheck.PreferenceResearchView" />
         <activity android:name=".MyPage.MyPageView" />
@@ -20,11 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.LoginView" >
-        </activity>
-        <activity android:name=".View.MywritingView"/>
-        <activity android:name=".View.SignupView"/>
-        <activity android:name=".View.WritingView"/>
-        <activity android:name=".View.WrittenpageView"/>
+        <activity android:name=".MyWriting.MywritingView"/>
+        <activity android:name=".SignUp.SignupView"/>
+        <activity android:name=".Writing.WritingView"/>
+        <activity android:name=".WrittenPage.WrittenpageView"/>
     </application>
 </manifest>

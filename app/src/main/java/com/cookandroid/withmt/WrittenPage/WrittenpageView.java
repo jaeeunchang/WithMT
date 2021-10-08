@@ -1,22 +1,28 @@
-package com.cookandroid.withmt.View;
+package com.cookandroid.withmt.WrittenPage;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.cookandroid.withmt.R;
+import com.cookandroid.withmt.Writing.WritingView;
 
 public class WrittenpageView extends AppCompatActivity {
+    Dialog CheckDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +39,9 @@ public class WrittenpageView extends AppCompatActivity {
         btnjoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //잠시 글쓰기 페이지로 등록
-                Intent intent = new Intent(getApplicationContext(), WritingView.class);
+                Uri uri = Uri.parse("");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
-//                intent.setData(Uri.parse("URL"));
-//                startActivity(intent);
             }
         });
     }
@@ -57,17 +61,36 @@ public class WrittenpageView extends AppCompatActivity {
                 finish();
                 return true;
             //메뉴 삭제버튼
+            case R.id.tool_end:
+
+
+            case R.id.tool_modify:
+                Intent intent = new Intent(getApplicationContext(), WritingView.class);
+                startActivity(intent);
+                return true;
+
             case R.id.tool_del:
-                AlertDialog.Builder dlg = new AlertDialog.Builder(WrittenpageView.this);
-                dlg.setNegativeButton("취소", null);
-                dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
+                CheckDel = new Dialog(WrittenpageView.this);
+                CheckDel.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                CheckDel.setContentView(R.layout.delete_dialog);
+                showDialogDel();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showDialogDel(){
+        CheckDel.show();
+        CheckDel.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.btnNo:
+                CheckDel.dismiss();
+                break;
+            case R.id.btnOk:
+                finish();
+        }
     }
 }
