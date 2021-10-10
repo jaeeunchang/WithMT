@@ -57,20 +57,19 @@ public class SignupView extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(editName.getText().toString().equals("") ||
-//                        editId.getText().toString().equals("") ||
-//                        editPW.getText().toString().equals("") ||
-//                        confirmPW.getText().toString().equals("") ||
-//                        radioGroup.getCheckedRadioButtonId() == -1){
-////                    Toast.makeText(getApplicationContext(), "답을 다 입력하지 않았습니다.", Toast.LENGTH_LONG).show();
-//                    Toast tmsg = Toast.makeText(SignupView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
-//                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
-//                    tmsg.show();
-//                }
-//                else{
+                if(editName.getText().toString().equals("") ||
+                        editId.getText().toString().equals("") ||
+                        editPW.getText().toString().equals("") ||
+                        confirmPW.getText().toString().equals("") ||
+                        radioGroup.getCheckedRadioButtonId() == -1){
+                    Toast tmsg = Toast.makeText(SignupView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
+                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
+                    tmsg.show();
+                }
+                else{
                     Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
                     startActivity(intent);
-//                }
+                }
             }
         });
 
