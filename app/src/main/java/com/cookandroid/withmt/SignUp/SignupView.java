@@ -63,7 +63,7 @@ public class SignupView extends AppCompatActivity {
                         confirmPW.getText().toString().equals("") ||
                         radioGroup.getCheckedRadioButtonId() == -1){
                     Toast tmsg = Toast.makeText(SignupView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
-//                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
+                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                     tmsg.show();
                 }
                 else{ Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
