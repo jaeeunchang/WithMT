@@ -66,9 +66,10 @@ public class SignupView extends AppCompatActivity {
                     tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                     tmsg.show();
                 }
-                else{ Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
-                    startActivity(intent);}
-
+                else{
+                    Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
+                    startActivity(intent);
+                }
             }
         });
 
