@@ -1,9 +1,11 @@
 package com.cookandroid.withmt.PreferenceCheck;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,9 +17,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PreferenceResearchView extends AppCompatActivity {
 
@@ -62,13 +69,11 @@ public class PreferenceResearchView extends AppCompatActivity {
 
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
 
-
-
+        Preference p = new Preference();
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (rGroup1.getCheckedRadioButtonId() == -1 ||
                         rGroup2.getCheckedRadioButtonId() == -1 ||
                         rGroup3.getCheckedRadioButtonId() == -1 ||
@@ -82,86 +87,110 @@ public class PreferenceResearchView extends AppCompatActivity {
                     tmsg.show();
                 }
                 else
-                {   // one of the radio buttons is checked
+                {
+                    // one of the radio buttons is checked
                     // 선택된것 데이터 전송
-                    switch (rGroup1.getCheckedRadioButtonId()) {
+                    switch (rGroup1.getCheckedRadioButtonId()) {//climbingLevel
                         case R.id.q1r1:
-                            //0
+                            p.setClimbingLevel("0"); //0
                             break;
                         case R.id.q1r2:
-                            //0.33
+                            p.setClimbingLevel("0.33"); //0.33
                             break;
                         case R.id.q1r3:
-                            //0.66
+                            p.setClimbingLevel("0.66"); //0.66
                             break;
                         case R.id.q1r4:
-                            //1
+                            p.setClimbingLevel("1"); //1
                             break;
                     }
 
-                    switch (rGroup2.getCheckedRadioButtonId()) {
+                    switch (rGroup2.getCheckedRadioButtonId()) {//difficulty
                         case R.id.q2r1:
-                            //0
+                            p.setDifficulty("0"); //0
                             break;
                         case R.id.q2r2:
-                            //0.25
+                            p.setDifficulty("0.25"); //0.25
                             break;
                         case R.id.q2r3:
-                            //0.5
+                            p.setDifficulty("0.5"); //0.5
                             break;
                         case R.id.q2r4:
-                            //0.75
+                            p.setDifficulty("0.75"); //0.75
                             break;
                         case R.id.q2r5:
-                            //1
+                            p.setDifficulty("0.1"); //1
                             break;
                     }
 
-                    switch (rGroup3.getCheckedRadioButtonId()) {
+                    switch (rGroup3.getCheckedRadioButtonId()) {//exercise
                         case R.id.q3r1:
-                            //0
+                            p.setExercise("0"); //0
                             break;
                         case R.id.q3r2:
-                            //0.25
+                            p.setExercise("0.25"); //0.25
                             break;
                         case R.id.q3r3:
-                            //0.5
+                            p.setExercise("0.5"); //0.5
                             break;
                         case R.id.q3r4:
-                            //0.75
+                            p.setExercise("0.75"); //0.75
                             break;
                         case R.id.q3r5:
-                            //1
+                            p.setExercise("1"); //1
                             break;
                     }
 
-                    switch (rGroup4.getCheckedRadioButtonId()) {
-                        case R.id.q4r1:
-                            //0
+                    switch (rGroup4.getCheckedRadioButtonId()) {//frequency
+                        case R.id.q4r1: //0
+                            p.setFrequency("0");
                             break;
-                        case R.id.q4r2:
-                            //0.5
+                        case R.id.q4r2: //0.5
+                            p.setFrequency("0.5");
                             break;
-                        case R.id.q4r3:
-                            //1
+                        case R.id.q4r3: //1
+                            p.setFrequency("1");
                             break;
                     }
 
-                    if(cb_friend.isChecked()) {
-                        //1
+                    if(cb_friend.isChecked()) {//friendship
+                        p.setFriendship("1"); //1
                     } else {
-                        //0
+                        p.setFriendship("0"); //0
                     }
 
-                    if(cb_hiking.isChecked()) {
-                        //1
+                    if(cb_hiking.isChecked()) {//climbingMate
+                        p.setClimbingMate("1"); //1
                     } else {
-                        //0
+                        p.setClimbingMate("0"); //0
                     }
 
                     Intent intent = new Intent(getApplicationContext(), MainPageView.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        ApiClient.getApiService().putPreference(new Preference()).enqueue(new Callback<Preference>() {
+            @Override
+            public void onResponse(@NonNull Call<Preference> call, @NonNull Response<Preference> response) {
+                if (response.isSuccessful()) {
+                    Preference p = response.body();
+                    if (p != null) {
+                        Log.d("data.getClimbingLevel()", p.getClimbingLevel() + "");
+                        Log.d("data.getDifficulty()", p.getDifficulty() + "");
+                        Log.d("data.getExercise()", p.getExercise() + "");
+                        Log.d("data.getFrequency()", p.getFrequency() + "");
+                        Log.d("data.getFriendship()", p.getFriendship() + "");
+                        Log.d("data.getClimbingMate()", p.getClimbingMate() + "");
+                        Log.e("putData end", "======================================");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Preference> call, @NonNull Throwable t) {
+
             }
         });
     }
