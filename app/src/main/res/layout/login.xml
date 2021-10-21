@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bgimg"
-    tools:context=".Login.LoginView">
+    tools:context=".Login.LoginView"
+    android:onClick="linearOnclick">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +37,8 @@
             android:drawableLeft="@drawable/ic_user_solid"
             android:drawablePadding="15dp"
             android:background="@drawable/et_st"
-            android:hint="아이디를 입력해주세요." />
+            android:hint="아이디를 입력해주세요."
+            android:inputType="text" />
         <EditText
             android:id="@+id/editPW"
             android:layout_margin="20dp"
@@ -45,7 +47,9 @@
             android:drawableLeft="@drawable/ic_lock_solid"
             android:drawablePadding="15dp"
             android:background="@drawable/et_st"
-            android:hint="비밀번호를 입력해주세요." />
+            android:hint="비밀번호를 입력해주세요."
+            android:inputType="textPassword"
+            android:maxLength="15" />
         <Button
             android:id="@+id/btnLogin"
             android:onClick="onClick"
