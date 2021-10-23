@@ -53,6 +53,7 @@ public class LoginView extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
     }
 
     // 배경 클릭 시 키보드 숨김
@@ -72,8 +73,8 @@ public class LoginView extends AppCompatActivity {
 
             //로그인 클릭 시
             case R.id.btnLogin:
-                String userid = edId.getText().toString();
-                String userpw = edPW.getText().toString();
+                userid = edId.getText().toString();
+                userpw = edPW.getText().toString();
                 loginPresenter.isLogin(userid, userpw);
                 break;
         }
@@ -81,7 +82,7 @@ public class LoginView extends AppCompatActivity {
 
     //메인으로 이동
     public void goToMain(){
-        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         SharedPreferences.Editor autoLogin = userinfo.edit();
         autoLogin.putString("inputId", userid);
         autoLogin.putString("inputPW", userpw);
