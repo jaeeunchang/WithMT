@@ -1,13 +1,12 @@
 package com.cookandroid.withmt.Login;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 public class LoginPresenter {
     LoginView loginView;
     LoginModel loginModel;
-
-    boolean result;
 
     public LoginPresenter(LoginView view){
         this.loginView = view;
@@ -22,4 +21,5 @@ public class LoginPresenter {
             loginView.setEditBg();
         }
     }
+
 }

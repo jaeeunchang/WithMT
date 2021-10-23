@@ -32,6 +32,7 @@ public class MyPageView extends AppCompatActivity {
     TextView user_icon, user_nickname, user_info;
     Button btn_back;
     LinearLayout writing_history, change_preference, logout;
+    String userid, userpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +55,10 @@ public class MyPageView extends AppCompatActivity {
         logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
         logout_dialog2.setContentView(R.layout.logout_dialog2);
 
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        userid = userinfo.getString("inputId", "none");
 
-
-        Call<MyInfo> call = ApiClient.getApiService().getUserInfo("test16");
+        Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
         call.enqueue(new Callback<MyInfo>() {
             @Override
             public void onResponse(Call<MyInfo> call, Response<MyInfo> response) {

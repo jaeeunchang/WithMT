@@ -37,7 +37,8 @@ public interface ApiInterface {
     Call<String> getID(@Query("userId") String userId);
 
     //회원가입
-    Call<SignUpResponse> postSignUp(@Body SignUpRequest signupRequest);
+    @POST("users")
+    Call<String> postSignUp(@Body SignUpRequest signupRequest);
 
     //초기 설문조사값 입력
     @PUT("users/taste")

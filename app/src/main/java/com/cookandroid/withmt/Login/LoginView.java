@@ -8,16 +8,22 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginView extends AppCompatActivity {
-    LoginPresenter loginPresenter;
+//    LoginPresenter loginPresenter;
     EditText edId, edPW;
     InputMethodManager imm;
     String userid, userpw;
@@ -36,7 +42,7 @@ public class LoginView extends AppCompatActivity {
             }
         }
 
-        loginPresenter = new LoginPresenter(this);
+//        loginPresenter = new LoginPresenter(this);
 
         edId = (EditText) findViewById(R.id.editId);
         edPW = (EditText) findViewById(R.id.editPW);
@@ -49,9 +55,10 @@ public class LoginView extends AppCompatActivity {
         userpw = userinfo.getString("inputPW", null);
 
         if(userid != null && userpw != null){
-            Intent intent = new Intent(getApplicationContext(), MainPageView.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(getApplicationContext(), MainPageView.class);
+//            startActivity(intent);
+//            finish();
+            goToMain();
         }
 
     }
@@ -75,18 +82,43 @@ public class LoginView extends AppCompatActivity {
             case R.id.btnLogin:
                 userid = edId.getText().toString();
                 userpw = edPW.getText().toString();
-                loginPresenter.isLogin(userid, userpw);
+                LoginRequest loginRequest = new LoginRequest(userid, userpw);
+
+                //retrofit 생성
+                Call<String> call = ApiClient.getApiService().postLogin(loginRequest);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.isSuccessful()) {
+                            Log.d("Tag", "로그인 성공");
+                            goToMain();
+                            SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                            SharedPreferences.Editor autoLogin = userinfo.edit();
+                            autoLogin.putString("inputId", userid);
+                            autoLogin.putString("inputPW", userpw);
+                            autoLogin.commit();
+                        }
+                        else {
+                            Log.d("Tag", "로그인 실패");
+                            setEditBg();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.e("Tag", String.valueOf(t));
+                    }
+                });
                 break;
         }
     };
 
     //메인으로 이동
     public void goToMain(){
-        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor autoLogin = userinfo.edit();
-        autoLogin.putString("inputId", userid);
-        autoLogin.putString("inputPW", userpw);
-        autoLogin.commit();
+//        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+//        SharedPreferences.Editor autoLogin = userinfo.edit();
+//        autoLogin.putString("inputId", userid);
+//        autoLogin.putString("inputPW", userpw);
+//        autoLogin.commit();
         Intent intent = new Intent(getApplicationContext(), MainPageView.class);
         startActivity(intent);
         finish();

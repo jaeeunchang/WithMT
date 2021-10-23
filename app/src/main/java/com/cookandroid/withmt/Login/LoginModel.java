@@ -12,13 +12,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginModel {
-    LoginPresenter loginPresenter;
     boolean result;
+
     public boolean checkLogin(String id, String pw) {
         LoginRequest loginRequest = new LoginRequest(id, pw);
 
         //retrofit 생성
         Call<String> call = ApiClient.getApiService().postLogin(loginRequest);
+
         //비동기식
         call.enqueue(new Callback<String>() {
             @Override
