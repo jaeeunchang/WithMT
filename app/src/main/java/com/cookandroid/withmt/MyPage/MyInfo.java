@@ -21,7 +21,7 @@ public class MyInfo {
     private Integer climbingMate;
 
     @SerializedName("climbingLevel")
-    private Integer climbingLevel;
+    private Double climbingLevel;
 
     @SerializedName("imoji")
     private String imoji;
@@ -88,11 +88,11 @@ public class MyInfo {
         this.climbingMate = climbingMate;
     }
 
-    public Integer getClimbingLevel() {
+    public Double getClimbingLevel() {
         return climbingLevel;
     }
 
-    public void setClimbingLevel(Integer climbingLevel) {
+    public void setClimbingLevel(Double climbingLevel) {
         this.climbingLevel = climbingLevel;
     }
 

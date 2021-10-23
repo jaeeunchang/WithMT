@@ -64,28 +64,90 @@ public class MyPageView extends AppCompatActivity {
                 }
 
                 MyInfo info = response.body();
+
+                //서버 데이터 받아오기
+                String imoji_server = info.getImoji();
+                String nickname_server = info.getNickname();
+                Integer gender_server = info.getGender();
+                Integer age_server = info.getGender();
+                Integer friendship_server = info.getFriendship();
+                Integer climbingmate_server = info.getClimbingMate();
+                Double level_server = info.getClimbingLevel();
+
+                //이모지 변환
                 String imoji = "";
-                if(info.getImoji()=="BEAR") {
+                if(imoji_server == "BEAR") {
                     imoji = "🐻";
-                } else if(info.getImoji() == "TIGER") {
+                } else if(imoji_server == "TIGER") {
                     imoji = "🐯";
-                } else if(info.getImoji() == "RABBIT") {
+                } else if(imoji_server == "RABBIT") {
                     imoji = "🐰";
-                } else if(info.getImoji() == "TIGER") {
-                    imoji = "🐯";
+                } else if(imoji_server == "FOX") {
+                    imoji = "🦊";
                 }
-                user_icon.append(info.getImoji());
-                user_nickname.append(info.getNickname());
+                user_icon.append(imoji);
 
-                String content="";
-                content += "imoji: " + info.getImoji() +"\n";
-                content += "imoji: " + info.getGender() +"\n";
-                content += "imoji: " + info.getAge() +"\n";
-                content += "imoji: " + info.getFriendship() +"\n";
-                content += "imoji: " + info.getClimbingMate() +"\n";
-                content += "imoji: " + info.getClimbingLevel() +"\n\n";
+                //닉네임
+                user_nickname.append(nickname_server);
 
-                user_info.append(content);
+                //선호도 값 텍스트로 변환
+                String prefer = "";
+                if(friendship_server == 1 && climbingmate_server == 1) {
+                    prefer = "친목+등산";
+                } else if(friendship_server == 1 && climbingmate_server == 0) {
+                    prefer = "친목 위주";
+                } else if(friendship_server == 0 && climbingmate_server == 1) {
+                    prefer = "등산 위주";
+                }
+
+                //등산능력 값 텍스트로 변환
+                String level = "";
+                if(level_server == 0) {
+                    level = "입문자";
+                } else if(level_server == 0.33) {
+                    level = "경험자";
+                } else if(level_server == 0.66) {
+                    level = "숙련가";
+                } else if(level_server == 1) {
+                    level = "전문가";
+                }
+
+                //성별 값 텍스트로 변환
+                String gender = "";
+                if(gender_server == 0) {
+                    gender = "남";
+                } else if(gender_server == 1) {
+                    gender = "여";
+                }
+
+                //나이 값 텍스트로 변환
+                String age = "";
+                switch (age_server) {
+                    case 1:
+                        age = "10대";
+                        break;
+                    case 2:
+                        age = "20대";
+                        break;
+                    case 3:
+                        age = "30대";
+                        break;
+                    case 4:
+                        age = "40대";
+                        break;
+                    case 5:
+                        age = "50대";
+                        break;
+                    case 6:
+                        age = "60대 이상";
+                        break;
+                    default:
+                        age = "X";
+                        break;
+                }
+
+                //사용자 정보 추가
+                user_info.append(level+"/"+prefer+"/"+gender+"/"+age);
             }
 
             @Override

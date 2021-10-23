@@ -27,25 +27,26 @@ public interface ApiInterface {
 //    Call<Preference> putPreference(@Field("data") String data);
 
     //마이페이지-사용자 정보조회
-//    @GET("users?userId={userid}")
-//    Call<MyInfo> getUserInfo(@Path("userid") String userId);
     @GET("users")
-    Call<MyInfo> getUserInfo(@Query("userId") String userid);
+    Call<MyInfo> getUserInfo(@Query("userId") String userId);
+    //    @GET("users?userId={userid}")
+    //    Call<MyInfo> getUserInfo(@Path("userid") String userId);
 
 
     //로그아웃
     @FormUrlEncoded
     @POST("logout")
     Call<Logout> postLogout(@Body Logout post);
-//    Call<Data> postData(@FieldMap HashMap<String, Object> param);
 
     //게시글 최신순 불러오기
+//    @GET("board")
+//    Call<List<MainList>> getAll();
+
     @GET("board")
-    Call<List<MainList>> getFunc(@Query("data") String data);
+    Call<MainList> getAll();
 
-//    @FormUrlEncoded
-//    @PUT("users/update/1")
-//    Call<ResponseBody> putFunc(@Field("data") String data);
-
-
+    //게시글 추천순 불러오기
+    @GET("board/recommend")
+//    Call<List<MainList>> getRecommend();
+    Call<MainList> getRecommend();
 }
