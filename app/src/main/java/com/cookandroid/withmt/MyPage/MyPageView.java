@@ -2,8 +2,10 @@ package com.cookandroid.withmt.MyPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -162,6 +164,10 @@ public class MyPageView extends AppCompatActivity {
                 logout_dialog2.dismiss(); // 다이얼로그 닫기
                 Intent intent = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(intent);
+                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLogin = userinfo.edit();
+                autoLogin.clear();
+                autoLogin.commit();
             }
         });
     }

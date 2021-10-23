@@ -2,14 +2,17 @@ package com.cookandroid.withmt.MainPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cookandroid.withmt.MyPage.MyPageView;
 import com.cookandroid.withmt.R;
@@ -19,7 +22,7 @@ import java.util.Calendar;
 
 public class MainPageView extends AppCompatActivity {
 
-
+    String userid, userpw;
     Button btn_mypage, btn_menu, btn_write;
     TextView filter_date;
     DatePickerDialog datePickerDialog;
@@ -35,6 +38,12 @@ public class MainPageView extends AppCompatActivity {
         Button btn_write = (Button) findViewById(R.id.btn_write);
 
         TextView filter_date = (TextView) findViewById(R.id.filter_date);
+
+
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        userid = userinfo.getString("inputId", "none");
+        userpw = userinfo.getString("inputPW", "엥");
+        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
 
         Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
