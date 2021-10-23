@@ -2,10 +2,12 @@ package com.cookandroid.withmt.MainPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,7 @@ public class MainPageView extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     ArrayList<WritingList> li;
     ListView lv;
+    String userid, userpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,12 @@ public class MainPageView extends AppCompatActivity {
 
         Spinner menu_spinner = (Spinner) findViewById(R.id.menu_spinner);
         TextView filter_date = (TextView) findViewById(R.id.filter_date);
+
+        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
+        userid = userinfo.getString("inputId", "none");
+        userpw = userinfo.getString("inputPW", "엥");
+        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
+
 
         String select_menu = menu_spinner.getSelectedItem().toString();
         if(select_menu == "추천순") {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class LoginView extends AppCompatActivity {
     LoginPresenter loginPresenter;
     EditText edId, edPW;
     InputMethodManager imm;
+    String userid, userpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,17 @@ public class LoginView extends AppCompatActivity {
         edPW = (EditText) findViewById(R.id.editPW);
 
         imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+
+        //자동 로그인
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        userid = userinfo.getString("inputId", null);
+        userpw = userinfo.getString("inputPW", null);
+
+        if(userid != null && userpw != null){
+            Intent intent = new Intent(getApplicationContext(), MainPageView.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     // 배경 클릭 시 키보드 숨김
@@ -68,6 +81,11 @@ public class LoginView extends AppCompatActivity {
 
     //메인으로 이동
     public void goToMain(){
+        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
+        SharedPreferences.Editor autoLogin = userinfo.edit();
+        autoLogin.putString("inputId", userid);
+        autoLogin.putString("inputPW", userpw);
+        autoLogin.commit();
         Intent intent = new Intent(getApplicationContext(), MainPageView.class);
         startActivity(intent);
         finish();

@@ -2,8 +2,10 @@ package com.cookandroid.withmt.MyPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import retrofit2.Response;
 public class MyPageView extends AppCompatActivity {
 
     Dialog logout_dialog, logout_dialog2;
+    String userid;
     TextView user_icon, user_nickname, user_info;
     Button btn_back;
     LinearLayout writing_history, change_preference, logout;
@@ -52,14 +55,16 @@ public class MyPageView extends AppCompatActivity {
         logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
         logout_dialog2.setContentView(R.layout.logout_dialog2);
 
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        userid = userinfo.getString("inputId", null);
 
 
-        Call<MyInfo> call = ApiClient.getApiService().getUserInfo("test16");
+        Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
         call.enqueue(new Callback<MyInfo>() {
             @Override
             public void onResponse(Call<MyInfo> call, Response<MyInfo> response) {
                 if(!response.isSuccessful()) {
-                    user_info.setText("code:"+response.code());
+                    user_info.setText("code:"+response.code()+"userinfo"+userid);
                     return;
                 }
 
@@ -224,6 +229,10 @@ public class MyPageView extends AppCompatActivity {
                 logout_dialog2.dismiss(); // 다이얼로그 닫기
                 Intent intent = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(intent);
+                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLogin = userinfo.edit();
+                autoLogin.clear();
+                autoLogin.commit();
             }
         });
     }
