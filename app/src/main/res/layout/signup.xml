@@ -67,7 +67,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textSize="60dp"
-                android:text="🐻"/>
+                android:text="🐻"
+                android:onClick="onClick"/>
             <Button
                 android:id="@+id/profile_T"
                 android:layout_margin="5dp"
@@ -75,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textSize="60dp"
-                android:text="🐯"/>
+                android:text="🐯"
+                android:onClick="onClick"/>
             <Button
                 android:id="@+id/profile_R"
                 android:layout_margin="5dp"
@@ -83,7 +85,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textSize="60dp"
-                android:text="🐰"/>
+                android:text="🐰"
+                android:onClick="onClick"/>
             <Button
                 android:id="@+id/profile_F"
                 android:layout_margin="5dp"
@@ -91,7 +94,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:textSize="60dp"
-                android:text="🦊"/>
+                android:text="🦊"
+                android:onClick="onClick"/>
         </LinearLayout>
         <LinearLayout
             android:gravity="center_vertical"
@@ -131,7 +135,6 @@
             android:layout_marginLeft="120dp"
             android:layout_marginBottom="5dp"
             android:textSize="12dp"
-            android:text="사용 가능한 아이디입니다."
             android:visibility="invisible"/>
         <LinearLayout
             android:gravity="center_vertical"
@@ -174,16 +177,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton
-                    android:id="@+id/rdFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="여성"/>
-                <RadioButton
                     android:id="@+id/rdMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:text="남성"/>
+                <RadioButton
+                    android:id="@+id/rdFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="여성"/>
             </RadioGroup>
         </LinearLayout>
         <LinearLayout
@@ -223,7 +226,6 @@
             android:layout_marginLeft="120dp"
             android:layout_marginBottom="5dp"
             android:textSize="12dp"
-            android:text="사용 가능한 아이디입니다."
             android:visibility="invisible"/>
         <LinearLayout
             android:gravity="center_vertical"
@@ -248,6 +250,7 @@
                 android:maxLength="15"/>
         </LinearLayout>
         <TextView
+            android:id="@+id/pwlegthcheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
@@ -279,13 +282,13 @@
                 android:maxLength="15"/>
         </LinearLayout>
         <TextView
-            android:id="@+id/alertpw"
+            android:id="@+id/alertPw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
             android:layout_marginBottom="15dp"
             android:textSize="12dp"
-            android:text="사용 가능한 아이디입니다."
+            android:text="비밀번호가 일치하지 않습니다."
             android:visibility="invisible"/>
         <Button
             android:id="@+id/btnNew"

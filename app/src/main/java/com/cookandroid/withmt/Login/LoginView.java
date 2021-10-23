@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +25,15 @@ public class LoginView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+        //상태바 설정
+        View view = getWindow().getDecorView();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(view != null) {
+                view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                getWindow().setStatusBarColor(Color.parseColor("#dbe4f3"));
+            }
+        }
+
         loginPresenter = new LoginPresenter(this);
 
         edId = (EditText) findViewById(R.id.editId);
@@ -31,6 +42,7 @@ public class LoginView extends AppCompatActivity {
         imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
     }
 
+    // 배경 클릭 시 키보드 숨김
     public void linearOnclick(View v){
         imm.hideSoftInputFromWindow(edId.getWindowToken(),0);
         imm.hideSoftInputFromWindow(edPW.getWindowToken(), 0);
@@ -47,7 +59,9 @@ public class LoginView extends AppCompatActivity {
 
             //로그인 클릭 시
             case R.id.btnLogin:
-                loginPresenter.isLogin(edId.getText().toString(), edPW.getText().toString());
+                String userid = edId.getText().toString();
+                String userpw = edPW.getText().toString();
+                loginPresenter.isLogin(userid, userpw);
                 break;
         }
     };

@@ -16,6 +16,15 @@ public class SignUpRequest {
     @SerializedName("imoji")
     private String imoji;
 
+    public SignUpRequest(String nickname, String userId, String passwd, String gender, String age, String imoji){
+        this.nickname = nickname;
+        this.userId = userId;
+        this.passwd = passwd;
+        this.gender = gender;
+        this.age = age;
+        this.imoji = imoji;
+    }
+
     public String getNickname() {
         return nickname;
     }
