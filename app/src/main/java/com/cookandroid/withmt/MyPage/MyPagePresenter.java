@@ -11,7 +11,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyPagePresenter extends MyPageView {
+public class MyPagePresenter{
+    MyPageView mpview;
+    MyPageModel mpmodel;
 
 //    public static void main(String[] args) {
 //        ApiClient.getApiService().postLogout(new Logout()).enqueue(new Callback<Logout>() {

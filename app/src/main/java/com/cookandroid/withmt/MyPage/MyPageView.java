@@ -57,6 +57,10 @@ public class MyPageView extends AppCompatActivity {
 
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         userid = userinfo.getString("inputId", null);
+//        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
+//        userid = userinfo.getString("inputId", "none");
+//        userpw = userinfo.getString("inputPW", "엥");
+//        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
 
 
         Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);

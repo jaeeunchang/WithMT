@@ -69,10 +69,11 @@ public class MainPageView extends AppCompatActivity {
         Spinner menu_spinner = (Spinner) findViewById(R.id.menu_spinner);
         TextView filter_date = (TextView) findViewById(R.id.filter_date);
 
-        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
-        userid = userinfo.getString("inputId", "none");
-        userpw = userinfo.getString("inputPW", "엥");
-        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
+        //userid값 넘겨받기
+//        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
+//        userid = userinfo.getString("inputId", "none");
+//        userpw = userinfo.getString("inputPW", "엥");
+//        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
 
 
         String select_menu = menu_spinner.getSelectedItem().toString();
