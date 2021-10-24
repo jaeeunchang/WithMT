@@ -29,10 +29,10 @@ import retrofit2.Response;
 public class MyPageView extends AppCompatActivity {
 
     Dialog logout_dialog, logout_dialog2;
-    String userid;
     TextView user_icon, user_nickname, user_info;
     Button btn_back;
     LinearLayout writing_history, change_preference, logout;
+    String userid, userpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +55,12 @@ public class MyPageView extends AppCompatActivity {
         logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
         logout_dialog2.setContentView(R.layout.logout_dialog2);
 
-        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-        userid = userinfo.getString("inputId", null);
 //        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
 //        userid = userinfo.getString("inputId", "none");
 //        userpw = userinfo.getString("inputPW", "엥");
 //        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        userid = userinfo.getString("inputId", "none");
 
 
         Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);

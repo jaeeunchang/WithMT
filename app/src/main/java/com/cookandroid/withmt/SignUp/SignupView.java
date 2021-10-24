@@ -63,6 +63,7 @@ public class SignupView extends AppCompatActivity {
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, agelist);
         spinner.setAdapter(adapter);
+        //나이 선택
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +87,7 @@ public class SignupView extends AppCompatActivity {
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         RadioButton rdMale = (RadioButton) findViewById(R.id.rdMale);
         RadioButton rdFemale = (RadioButton) findViewById(R.id.rdFemale);
-
+        //라디오 그룹 선택
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -96,6 +97,7 @@ public class SignupView extends AppCompatActivity {
                 }
             }
         });
+        
         TextView pwlegthcheck = (TextView)findViewById(R.id.pwlegthcheck);
         TextView alertpw = (TextView)findViewById(R.id.alertPw);
         //비밀번호 길이 확인(5글자 이상인지)
@@ -139,6 +141,7 @@ public class SignupView extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //입력 누락된 곳 확인
                 if(imoji.equals("") ||
                         editName.getText().toString().equals("") ||
                         editId.getText().toString().equals("") ||
@@ -153,21 +156,23 @@ public class SignupView extends AppCompatActivity {
                     tmsg.show();
                 }
                 else{
+                    //회원가입 post
                     SignUpRequest signupRequest = new SignUpRequest(editName.getText().toString(), editId.getText().toString(), editPW.getText().toString(), gender, age, imoji);
-                    Call<SignUpResponse> call = new ApiClient().getApiService().postSignUp(signupRequest);
-                    call.enqueue(new Callback<SignUpResponse>() {
+                    Call<String> call = new ApiClient().getApiService().postSignUp(signupRequest);
+                    call.enqueue(new Callback<String>() {
                         @Override
-                        public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
-
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.isSuccessful()){
+                                Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
+                                startActivity(intent);
+                            }
                         }
 
                         @Override
-                        public void onFailure(Call<SignUpResponse> call, Throwable t) {
+                        public void onFailure(Call<String> call, Throwable t) {
 
                         }
                     });
-                    Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
-                    startActivity(intent);
                 }
             }
         });
