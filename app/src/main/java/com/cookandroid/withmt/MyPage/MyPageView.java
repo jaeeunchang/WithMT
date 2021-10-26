@@ -9,22 +9,41 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.textservice.SuggestionsInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.ApiInterface;
 import com.cookandroid.withmt.MyWriting.MywritingView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.PreferenceChangeView;
+import com.cookandroid.withmt.PreferenceCheck.Preference;
+import com.cookandroid.withmt.PreferenceCheck.PreferenceResearchView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Login.LoginView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
+import java.io.IOException;
+import java.net.CookieManager;
+
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 
 public class MyPageView extends AppCompatActivity {
 
@@ -55,49 +74,56 @@ public class MyPageView extends AppCompatActivity {
         logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
         logout_dialog2.setContentView(R.layout.logout_dialog2);
 
-//        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
-//        userid = userinfo.getString("inputId", "none");
-//        userpw = userinfo.getString("inputPW", "엥");
-//        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         userid = userinfo.getString("inputId", "none");
+//        userpw = userinfo.getString("inputPW", "none");
 
+        //Log.d("Tag", "마이페이지call 보내기 전");
+//        ApiClient.test();
 
         Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
+
+        //Log.d("Tag", "마이페이지call 보낸 후");
+//        ApiClient.test();
+
         call.enqueue(new Callback<MyInfo>() {
             @Override
             public void onResponse(Call<MyInfo> call, Response<MyInfo> response) {
                 if(!response.isSuccessful()) {
-                    user_info.setText("code:"+response.code()+"userinfo"+userid);
+                    user_info.setText("code:"+response.code()+", userinfo: "+userid);
                     return;
                 }
 
                 MyInfo info = response.body();
+                Log.d("Tag", response.body().toString());
 
                 //서버 데이터 받아오기
                 String imoji_server = info.getImoji();
                 String nickname_server = info.getNickname();
                 Integer gender_server = info.getGender();
-                Integer age_server = info.getGender();
+                Integer age_server = info.getAge();
                 Integer friendship_server = info.getFriendship();
                 Integer climbingmate_server = info.getClimbingMate();
                 Double level_server = info.getClimbingLevel();
 
+
                 //이모지 변환
                 String imoji = "";
-                if(imoji_server == "BEAR") {
+                if(imoji_server.equals("BEAR")) {
                     imoji = "🐻";
-                } else if(imoji_server == "TIGER") {
+                } else if(imoji_server.equals("TIGER")) {
                     imoji = "🐯";
-                } else if(imoji_server == "RABBIT") {
+                } else if(imoji_server.equals("RABBIT")) {
                     imoji = "🐰";
-                } else if(imoji_server == "FOX") {
+                } else if(imoji_server.equals("FOX")) {
                     imoji = "🦊";
+                } else {
+                    imoji = "😊";
                 }
-                user_icon.append(imoji);
+                user_icon.setText(imoji);
 
                 //닉네임
-                user_nickname.append(nickname_server);
+                user_nickname.setText(nickname_server);
 
                 //선호도 값 텍스트로 변환
                 String prefer = "";
@@ -156,7 +182,7 @@ public class MyPageView extends AppCompatActivity {
                 }
 
                 //사용자 정보 추가
-                user_info.append(level+"/"+prefer+"/"+gender+"/"+age);
+                user_info.setText(level+"/"+prefer+"/"+gender+"/"+age);
             }
 
             @Override
@@ -215,8 +241,28 @@ public class MyPageView extends AppCompatActivity {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout_dialog.dismiss(); // 다이얼로그 닫기
-                show_dialog2();
+                Log.d("Tag", "로그아웃 보내기 전");
+                ApiClient.test();
+
+                Call<String> call = ApiClient.getApiService().postLogout();
+
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(!response.isSuccessful()) {
+                            Log.d("Tag", "로그아웃 실패 코드: "+response.code());
+                        }
+                        Log.d("Tag", "로그아웃 response: "+response.body());
+                        Log.d("Tag", "로그아웃 성공 코드: "+response.code());
+                        logout_dialog.dismiss(); // 다이얼로그 닫기
+                        show_dialog2();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("Tag", "에러 코드: "+t.getMessage());
+                    }
+                });
             }
         });
     }
@@ -231,13 +277,21 @@ public class MyPageView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout_dialog2.dismiss(); // 다이얼로그 닫기
-                Intent intent = new Intent(getApplicationContext(), LoginView.class);
-                startActivity(intent);
-                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor autoLogin = userinfo.edit();
-                autoLogin.clear();
-                autoLogin.commit();
+                Log.d("Tag","userid값 확인1: "+userid);
+                goToLogin();
+                Log.d("Tag","userid값 확인2: "+userid);
+
+//                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+//                SharedPreferences.Editor autoLogin = userinfo.edit();
+//                autoLogin.clear();
+//                autoLogin.commit();
             }
         });
+    }
+
+    public void goToLogin(){
+        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        startActivity(intent);
+        finish();
     }
 }

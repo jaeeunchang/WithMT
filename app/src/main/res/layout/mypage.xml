@@ -37,7 +37,7 @@
                 android:layout_marginTop="20dp"
                 android:textSize="85sp"
                 android:textColor="#000000"
-                android:text="🐰"/>
+                android:text="🐥"/>
 
             <TextView
                 android:id="@+id/user_nickname"

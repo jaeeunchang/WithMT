@@ -38,7 +38,7 @@ public class MyInfo {
                 ", imoji=" + imoji + '}';
     }
 
-//    public MyInfo(String nickname, Integer gender, Integer age, Integer friendship, Integer climbingMate, Integer climbingLevel, String imoji) {
+//    public MyInfo(String nickname, Integer gender, Integer age, Integer friendship, Integer climbingMate, Double climbingLevel, String imoji) {
 //        this.nickname = nickname;
 //        this.gender = gender;
 //        this.age = age;

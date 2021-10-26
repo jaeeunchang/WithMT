@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,6 @@ import retrofit2.Response;
 
 public class MainPageView extends AppCompatActivity {
 
-
     Button btn_mypage, btn_menu, btn_write;
     Spinner menu_spinner;
     TextView filter_date;
@@ -51,6 +51,15 @@ public class MainPageView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+//        userid = userinfo.getString("inputId", "none");
+//        userpw = userinfo.getString("inputPW", "none");
+
+//        Log.d("Tag", "메인페이지");
+//        Log.d("Tag","userid값 확인5: "+userid);
+//        Log.d("Tag","userpw 확인5: "+userpw);
+//        ApiClient.test();
 
 
         li = new ArrayList<WritingList>();
@@ -80,53 +89,54 @@ public class MainPageView extends AppCompatActivity {
         if(select_menu == "추천순") {
             //추천순 GET
 
-            Call<MainList> call =  ApiClient.getApiService().getRecommend();
-            call.enqueue(new Callback<MainList>() {
-                @Override
-                public void onResponse(Call<MainList> call, Response<MainList> response) {
-                    if(!response.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "code"+response.code(), Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    MainList list = response.body();
-
-                    //서버 데이터 받아오기
-                    String title_server = list.getBoard().getTitle();
-                    String date_server = list.getBoard().getTitle();
-                    Integer gender_server = list.getBoard().getGender();
-                    String imoji_server = list.getUser().getImoji();
-                    String nickname_server = list.getUser().getNickname();
-
-                    //성별 값 텍스트로 변환
-                    String gender = "";
-                    if(gender_server == 0) {
-                        gender = "남";
-                    } else if(gender_server == 1) {
-                        gender = "여";
-                    } else if(gender_server == 2) {
-                        gender = "상관없음";
-                    }
-
-                    //이모지 변환
-                    String imoji = "";
-                    if(imoji_server == "BEAR") {
-                        imoji = "🐻";
-                    } else if(imoji_server == "TIGER") {
-                        imoji = "🐯";
-                    } else if(imoji_server == "RABBIT") {
-                        imoji = "🐰";
-                    } else if(imoji_server == "FOX") {
-                        imoji = "🦊";
-                    }
-
-                    li.add(new WritingList(title_server,date_server, gender, imoji, nickname_server));
-                }
-                @Override
-                public void onFailure(Call<MainList> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+//            Call<MainList> call =  ApiClient.getApiService().getRecommend();
+//            call.enqueue(new Callback<MainList>() {
+//                @Override
+//                public void onResponse(Call<MainList> call, Response<MainList> response) {
+//                    if(!response.isSuccessful()) {
+//                        Log.d("TagMain", String.valueOf(response.headers()));
+//                        Toast.makeText(getApplicationContext(), "code"+response.code(), Toast.LENGTH_LONG).show();
+//                        return;
+//                    }
+//                    MainList list = response.body();
+//                    Log.d("TagMain", String.valueOf(response.headers()));
+//
+//                    //서버 데이터 받아오기
+//                    String title_server = list.getBoard().getTitle();
+//                    String date_server = list.getBoard().getTitle();
+//                    Integer gender_server = list.getBoard().getGender();
+//                    String imoji_server = list.getUser().getImoji();
+//                    String nickname_server = list.getUser().getNickname();
+//
+//                    //성별 값 텍스트로 변환
+//                    String gender = "";
+//                    if(gender_server == 0) {
+//                        gender = "남";
+//                    } else if(gender_server == 1) {
+//                        gender = "여";
+//                    } else if(gender_server == 2) {
+//                        gender = "상관없음";
+//                    }
+//
+//                    //이모지 변환
+//                    String imoji = "";
+//                    if(imoji_server == "BEAR") {
+//                        imoji = "🐻";
+//                    } else if(imoji_server == "TIGER") {
+//                        imoji = "🐯";
+//                    } else if(imoji_server == "RABBIT") {
+//                        imoji = "🐰";
+//                    } else if(imoji_server == "FOX") {
+//                        imoji = "🦊";
+//                    }
+//
+//                    li.add(new WritingList(title_server,date_server, gender, imoji, nickname_server));
+//                }
+//                @Override
+//                public void onFailure(Call<MainList> call, Throwable t) {
+//                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+//                }
+//            });
         } else if(select_menu == "최신순") {
             //최신순 GET
         }
@@ -148,7 +158,6 @@ public class MainPageView extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 filter_date.setText("2021-00-00");
-                //Your code
             }
         });
 

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.MainPage.MainPageView;
+import com.cookandroid.withmt.MyPage.MyInfo;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
 
@@ -27,6 +28,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PreferenceResearchView extends AppCompatActivity {
+
+    Preference preference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class PreferenceResearchView extends AppCompatActivity {
 
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
 
-        Preference p = new Preference();
+        Preference p = new Preference("0","0","0","0","1","1");
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,14 +84,12 @@ public class PreferenceResearchView extends AppCompatActivity {
                         (!cb_friend.isChecked() && !cb_hiking.isChecked()))
                 {
                     // no radio buttons are checked
-//                    Toast.makeText(getApplicationContext(), "답을 다 입력하지 않았습니다.", Toast.LENGTH_LONG).show();
                     Toast tmsg = Toast.makeText(getApplicationContext(), "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
-                    tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
+                    //tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                     tmsg.show();
                 }
                 else
                 {
-                    // one of the radio buttons is checked
                     // 선택된것 데이터 전송
                     switch (rGroup1.getCheckedRadioButtonId()) {//climbingLevel
                         case R.id.q1r1:
@@ -119,7 +120,7 @@ public class PreferenceResearchView extends AppCompatActivity {
                             p.setDifficulty("0.75"); //0.75
                             break;
                         case R.id.q2r5:
-                            p.setDifficulty("0.1"); //1
+                            p.setDifficulty("1"); //1
                             break;
                     }
 
@@ -165,42 +166,48 @@ public class PreferenceResearchView extends AppCompatActivity {
                         p.setClimbingMate("0"); //0
                     }
 
-                    Intent intent = new Intent(getApplicationContext(), MainPageView.class);
-                    startActivity(intent);
+                    preference = new Preference(p.getClimbingLevel(),p.getDifficulty(),p.getExercise(),p.getFrequency(),p.getFriendship(),p.getClimbingMate());
+
+                    Log.d("Tag", "설문조사 call 보내기 전");
+                    ApiClient.test();
+
+                    Call<Preference> call = ApiClient.getApiService().putPreference(preference);
+
+                    Log.d("Tag", "설문조사 call 보낸 후");
+                    ApiClient.test();
+
+                    call.enqueue(new Callback<Preference>() {
+                        @Override
+                        public void onResponse(Call<Preference> call, Response<Preference> response) {
+                            if(!response.isSuccessful()) {
+                                Log.d("Tag", "설문조사 응답코드: "+response.code());
+                                return;
+                            }
+                            Log.d("Tag", "설문조사 응답코드: "+response.code());
+                            Log.d("Tag", "response.body: "+response.body().toString());
+
+
+                            Intent intent = new Intent(getApplicationContext(), MainPageView.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onFailure(Call<Preference> call, Throwable t) {
+                            Log.d("Tag", "에러 코드: "+t.getMessage());
+                        }
+                    });
                 }
-            }
-        });
-
-        ApiClient.getApiService().putPreference(new Preference()).enqueue(new Callback<Preference>() {
-            @Override
-            public void onResponse(@NonNull Call<Preference> call, @NonNull Response<Preference> response) {
-                if (response.isSuccessful()) {
-                    Preference p = response.body();
-                    if (p != null) {
-                        Log.d("data.getClimbingLevel()", p.getClimbingLevel() + "");
-                        Log.d("data.getDifficulty()", p.getDifficulty() + "");
-                        Log.d("data.getExercise()", p.getExercise() + "");
-                        Log.d("data.getFrequency()", p.getFrequency() + "");
-                        Log.d("data.getFriendship()", p.getFriendship() + "");
-                        Log.d("data.getClimbingMate()", p.getClimbingMate() + "");
-                        Log.e("putData end", "======================================");
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Preference> call, @NonNull Throwable t) {
-
             }
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()){
+//            case android.R.id.home:
+//                finish();
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

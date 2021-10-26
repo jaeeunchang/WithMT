@@ -158,6 +158,8 @@ public class SignupView extends AppCompatActivity {
                 else{
                     //회원가입 post
                     SignUpRequest signupRequest = new SignUpRequest(editName.getText().toString(), editId.getText().toString(), editPW.getText().toString(), gender, age, imoji);
+
+
                     Call<String> call = new ApiClient().getApiService().postSignUp(signupRequest);
                     call.enqueue(new Callback<String>() {
                         @Override
@@ -165,6 +167,7 @@ public class SignupView extends AppCompatActivity {
                             if(response.isSuccessful()){
                                 Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
                                 startActivity(intent);
+                                finish();
                             }
                         }
 
