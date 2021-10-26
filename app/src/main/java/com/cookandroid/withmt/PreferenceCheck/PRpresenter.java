@@ -13,31 +13,31 @@ import com.cookandroid.withmt.ApiClient;
 
 import java.io.IOException;
 
-public class PRpresenter implements PRConstants.Presenter {
+public class PRpresenter {
 
     public static void main(String[] args) {
-        ApiClient.getApiService().putPreference(new Preference()).enqueue(new Callback<Preference>() {
-            @Override
-            public void onResponse(@NonNull Call<Preference> call, @NonNull Response<Preference> response) {
-                if (response.isSuccessful()) {
-                    Preference p = response.body();
-                    if (p != null) {
-                        Log.d("data.getClimbingLevel()", p.getClimbingLevel() + "");
-                        Log.d("data.getDifficulty()", p.getDifficulty() + "");
-                        Log.d("data.getExercise()", p.getExercise() + "");
-                        Log.d("data.getFrequency()", p.getFrequency() + "");
-                        Log.d("data.getFriendship()", p.getFriendship() + "");
-                        Log.d("data.getClimbingMate()", p.getClimbingMate() + "");
-                        Log.e("putData end", "======================================");
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<Preference> call, @NonNull Throwable t) {
-
-            }
-        });
+//        ApiClient.getApiService().putPreference(new Preference()).enqueue(new Callback<Preference>() {
+//            @Override
+//            public void onResponse(@NonNull Call<Preference> call, @NonNull Response<Preference> response) {
+//                if (response.isSuccessful()) {
+//                    Preference p = response.body();
+//                    if (p != null) {
+//                        Log.d("data.getClimbingLevel()", p.getClimbingLevel() + "");
+//                        Log.d("data.getDifficulty()", p.getDifficulty() + "");
+//                        Log.d("data.getExercise()", p.getExercise() + "");
+//                        Log.d("data.getFrequency()", p.getFrequency() + "");
+//                        Log.d("data.getFriendship()", p.getFriendship() + "");
+//                        Log.d("data.getClimbingMate()", p.getClimbingMate() + "");
+//                        Log.e("putData end", "======================================");
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<Preference> call, @NonNull Throwable t) {
+//
+//            }
+//        });
 
 
 //        Call<Object> putPreference = ApiClient.getApiService().putPreference();
@@ -46,9 +46,6 @@ public class PRpresenter implements PRConstants.Presenter {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-    }
-
-    public PRpresenter(PRConstants.View view){
     }
 }
 

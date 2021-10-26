@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.ApiInterface;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import retrofit2.Response;
 
 public class LoginModel {
     boolean result;
+    ApiInterface apiInterface;
 
     public boolean checkLogin(String id, String pw) {
         LoginRequest loginRequest = new LoginRequest(id, pw);

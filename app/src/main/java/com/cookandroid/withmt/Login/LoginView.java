@@ -1,6 +1,7 @@
 package com.cookandroid.withmt.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.widgets.Chain;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,13 +15,29 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.ApiInterface;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.net.CookieManager;
+import java.util.HashSet;
+import java.util.Set;
+
+import okhttp3.CookieJar;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginView extends AppCompatActivity {
 //    LoginPresenter loginPresenter;
@@ -49,10 +66,12 @@ public class LoginView extends AppCompatActivity {
 
         imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 
+        Log.d("Tag","userid값 확인3: "+userid);
+
         //자동 로그인
-        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-        userid = userinfo.getString("inputId", null);
-        userpw = userinfo.getString("inputPW", null);
+//        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+//        userid = userinfo.getString("inputId", null);
+//        userpw = userinfo.getString("inputPW", null);
 
         if(userid != null && userpw != null){
 //            Intent intent = new Intent(getApplicationContext(), MainPageView.class);
@@ -90,8 +109,11 @@ public class LoginView extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if(response.isSuccessful()) {
+                            Log.d("Tag", String.valueOf(response.headers()));
                             Log.d("Tag", "로그인 성공");
                             goToMain();
+                            Log.d("Tag", response.headers().get("Set-Cookie"));
+
                             SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
                             SharedPreferences.Editor autoLogin = userinfo.edit();
                             autoLogin.putString("inputId", userid);
@@ -127,5 +149,12 @@ public class LoginView extends AppCompatActivity {
     public void setEditBg(){
         edId.setBackgroundResource(R.drawable.et_error);
         edPW.setBackgroundResource(R.drawable.et_error);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Tag", "Destroy");
+        ApiClient.test();
     }
 }
