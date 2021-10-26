@@ -23,27 +23,11 @@ import com.cookandroid.withmt.ApiInterface;
 import com.cookandroid.withmt.MyWriting.MywritingView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.PreferenceChangeView;
-import com.cookandroid.withmt.PreferenceCheck.Preference;
-import com.cookandroid.withmt.PreferenceCheck.PreferenceResearchView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Login.LoginView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-
-import java.io.IOException;
-import java.net.CookieManager;
-
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 public class MyPageView extends AppCompatActivity {
 

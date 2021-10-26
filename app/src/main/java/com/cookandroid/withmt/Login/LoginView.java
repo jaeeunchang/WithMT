@@ -1,7 +1,6 @@
 package com.cookandroid.withmt.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.widgets.Chain;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,30 +14,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.cookandroid.withmt.ApiClient;
-import com.cookandroid.withmt.ApiInterface;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
-import com.franmontiel.persistentcookiejar.PersistentCookieJar;
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-import java.net.CookieManager;
-import java.util.HashSet;
-import java.util.Set;
 
-import okhttp3.CookieJar;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class LoginView extends AppCompatActivity {
 //    LoginPresenter loginPresenter;
     EditText edId, edPW;
