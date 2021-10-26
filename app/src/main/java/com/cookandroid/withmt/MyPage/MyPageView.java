@@ -12,38 +12,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.textservice.SuggestionsInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cookandroid.withmt.ApiClient;
-import com.cookandroid.withmt.ApiInterface;
 import com.cookandroid.withmt.MyWriting.MywritingView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.PreferenceChangeView;
-import com.cookandroid.withmt.PreferenceCheck.Preference;
-import com.cookandroid.withmt.PreferenceCheck.PreferenceResearchView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Login.LoginView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
-import java.io.IOException;
-import java.net.CookieManager;
-
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 public class MyPageView extends AppCompatActivity {
 
@@ -76,10 +58,6 @@ public class MyPageView extends AppCompatActivity {
 
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         userid = userinfo.getString("inputId", "none");
-//        userpw = userinfo.getString("inputPW", "none");
-
-        //Log.d("Tag", "마이페이지call 보내기 전");
-//        ApiClient.test();
 
         Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
 
@@ -281,10 +259,10 @@ public class MyPageView extends AppCompatActivity {
                 goToLogin();
                 Log.d("Tag","userid값 확인2: "+userid);
 
-//                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-//                SharedPreferences.Editor autoLogin = userinfo.edit();
-//                autoLogin.clear();
-//                autoLogin.commit();
+                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLogin = userinfo.edit();
+                autoLogin.clear();
+                autoLogin.commit();
             }
         });
     }
