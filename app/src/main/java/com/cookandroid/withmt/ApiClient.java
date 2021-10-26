@@ -40,7 +40,6 @@ public class ApiClient{
 
         }
         return retrofit;
-
     }
 
     public static void test() {

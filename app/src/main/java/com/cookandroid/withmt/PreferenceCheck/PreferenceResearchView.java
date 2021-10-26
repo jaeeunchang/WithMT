@@ -19,7 +19,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.MainPage.MainPageView;
-import com.cookandroid.withmt.MyPage.MyInfo;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
 
@@ -202,12 +201,12 @@ public class PreferenceResearchView extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case android.R.id.home:
-//                finish();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

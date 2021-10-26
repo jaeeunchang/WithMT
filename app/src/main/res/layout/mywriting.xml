@@ -22,7 +22,7 @@
             android:text="내가 작성한 글"/>
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
-        android:id="@+id/mylist"
+        android:id="@+id/nothingList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

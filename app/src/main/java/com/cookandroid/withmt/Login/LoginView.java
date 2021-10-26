@@ -18,12 +18,11 @@ import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
 
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 public class LoginView extends AppCompatActivity {
-//    LoginPresenter loginPresenter;
     EditText edId, edPW;
     InputMethodManager imm;
     String userid, userpw;
@@ -42,27 +41,10 @@ public class LoginView extends AppCompatActivity {
             }
         }
 
-//        loginPresenter = new LoginPresenter(this);
-
         edId = (EditText) findViewById(R.id.editId);
         edPW = (EditText) findViewById(R.id.editPW);
 
         imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-
-        Log.d("Tag","userid값 확인3: "+userid);
-
-        //자동 로그인
-//        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-//        userid = userinfo.getString("inputId", null);
-//        userpw = userinfo.getString("inputPW", null);
-
-        if(userid != null && userpw != null){
-//            Intent intent = new Intent(getApplicationContext(), MainPageView.class);
-//            startActivity(intent);
-//            finish();
-            goToMain();
-        }
-
     }
 
     // 배경 클릭 시 키보드 숨김
@@ -78,6 +60,7 @@ public class LoginView extends AppCompatActivity {
             case R.id.btnSignup:
                 intent = new Intent(getApplicationContext(), SignupView.class);
                 startActivity(intent);
+                finish();
                 break;
 
             //로그인 클릭 시
@@ -95,8 +78,6 @@ public class LoginView extends AppCompatActivity {
                             Log.d("Tag", String.valueOf(response.headers()));
                             Log.d("Tag", "로그인 성공");
                             goToMain();
-                            Log.d("Tag", response.headers().get("Set-Cookie"));
-
                             SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
                             SharedPreferences.Editor autoLogin = userinfo.edit();
                             autoLogin.putString("inputId", userid);
@@ -119,11 +100,6 @@ public class LoginView extends AppCompatActivity {
 
     //메인으로 이동
     public void goToMain(){
-//        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-//        SharedPreferences.Editor autoLogin = userinfo.edit();
-//        autoLogin.putString("inputId", userid);
-//        autoLogin.putString("inputPW", userpw);
-//        autoLogin.commit();
         Intent intent = new Intent(getApplicationContext(), MainPageView.class);
         startActivity(intent);
         finish();

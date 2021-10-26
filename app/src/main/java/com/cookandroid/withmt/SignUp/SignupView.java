@@ -2,7 +2,9 @@ package com.cookandroid.withmt.SignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.Login.LoginRequest;
+import com.cookandroid.withmt.Login.LoginView;
 import com.cookandroid.withmt.PreferenceCheck.PreferenceResearchView;
 import com.cookandroid.withmt.R;
 
@@ -34,7 +38,7 @@ public class SignupView extends AppCompatActivity {
     EditText editName, editId, editPW, confirmPW;
     Button btnNew, btnCheckname, btnCheckId;
     TextView alertname, alertId;
-    String imoji, gender, age;
+    String userid, userpw, usernic, imoji, gender, age;
 
 
     @Override
@@ -84,20 +88,18 @@ public class SignupView extends AppCompatActivity {
             }
         });
 
+        //성별 라디오 버튼 선택
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        RadioButton rdMale = (RadioButton) findViewById(R.id.rdMale);
-        RadioButton rdFemale = (RadioButton) findViewById(R.id.rdFemale);
-        //라디오 그룹 선택
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
-                    case 0: gender = "0"; break;
-                    case 1: gender = "1"; break;
+                    case R.id.rdMale: gender = "0"; break;
+                    case R.id.rdFemale: gender = "1"; break;
                 }
             }
         });
-        
+
         TextView pwlegthcheck = (TextView)findViewById(R.id.pwlegthcheck);
         TextView alertpw = (TextView)findViewById(R.id.alertPw);
         //비밀번호 길이 확인(5글자 이상인지)
@@ -136,7 +138,6 @@ public class SignupView extends AppCompatActivity {
             public void afterTextChanged(Editable s) { }
         });
 
-
         //회원가입버튼
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,23 +157,45 @@ public class SignupView extends AppCompatActivity {
                     tmsg.show();
                 }
                 else{
+                    //닉네임, 아이디, 비밀번호 변수에 할당
+                    usernic = editName.getText().toString();
+                    userid = editId.getText().toString();
+                    userpw = editPW.getText().toString();
                     //회원가입 post
-                    SignUpRequest signupRequest = new SignUpRequest(editName.getText().toString(), editId.getText().toString(), editPW.getText().toString(), gender, age, imoji);
-
-
-                    Call<String> call = new ApiClient().getApiService().postSignUp(signupRequest);
-                    call.enqueue(new Callback<String>() {
+                    SignUpRequest signupRequest = new SignUpRequest(usernic, userid, userpw, gender, age, imoji);
+                    Call<SignUpResponse> call = new ApiClient().getApiService().postSignUp(signupRequest);
+                    call.enqueue(new Callback<SignUpResponse>() {
                         @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
+                        public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
                             if(response.isSuccessful()){
-                                Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
-                                startActivity(intent);
-                                finish();
+                                //회원가입 성공하면 로그인
+                                LoginRequest loginRequest = new LoginRequest(userid, userpw);
+                                Call<String> logincall = new ApiClient().getApiService().postLogin(loginRequest);
+                                logincall.enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+                                        if(response.isSuccessful()){
+                                            SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                                            SharedPreferences.Editor autoLogin = userinfo.edit();
+                                            autoLogin.putString("inputId", userid);
+                                            autoLogin.putString("inputPW", userpw);
+                                            autoLogin.commit();
+                                            Intent intent = new Intent(getApplicationContext(), PreferenceResearchView.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+
+                                    }
+                                });
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                        public void onFailure(Call<SignUpResponse> call, Throwable t) {
 
                         }
                     });
@@ -181,7 +204,6 @@ public class SignupView extends AppCompatActivity {
         });
 
         //닉네임 중복 확인
-
         btnCheckname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
