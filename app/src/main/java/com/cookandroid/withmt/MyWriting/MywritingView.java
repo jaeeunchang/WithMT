@@ -51,6 +51,8 @@ public class MywritingView extends AppCompatActivity {
             public void onResponse(Call<List<MyWritingResponse>> call, Response<List<MyWritingResponse>> response) {
                 if(response.isSuccessful()){
                     Log.d("Tag", String.valueOf(response.headers()));
+                    Log.d("Tag", String.valueOf(response.body()));
+
                     nothingList.setVisibility(View.GONE);
                     myList.setVisibility(View.VISIBLE);
 

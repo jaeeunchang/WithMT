@@ -259,10 +259,10 @@ public class MyPageView extends AppCompatActivity {
                 goToLogin();
                 Log.d("Tag","userid값 확인2: "+userid);
 
-//                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-//                SharedPreferences.Editor autoLogin = userinfo.edit();
-//                autoLogin.clear();
-//                autoLogin.commit();
+                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLogin = userinfo.edit();
+                autoLogin.clear();
+                autoLogin.commit();
             }
         });
     }
