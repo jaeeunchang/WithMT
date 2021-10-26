@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -58,15 +59,16 @@ public class MyPageView extends AppCompatActivity {
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         userid = userinfo.getString("inputId", "none");
 
-        Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
-        call.enqueue(new Callback<MyInfo>() {
+        ApiClient.getApiService().getUserInfo(userid)
+                .enqueue(new Callback<MyInfo>() {
             @Override
             public void onResponse(Call<MyInfo> call, Response<MyInfo> response) {
                 if(!response.isSuccessful()) {
                     user_info.setText("code:"+response.code());
+                    Log.d("Tag", String.valueOf(response.headers()));
                     return;
                 }
-
+                Log.d("Tag", String.valueOf(response.headers()));
                 MyInfo info = response.body();
                 String imoji = "";
                 if(info.getImoji()=="BEAR") {

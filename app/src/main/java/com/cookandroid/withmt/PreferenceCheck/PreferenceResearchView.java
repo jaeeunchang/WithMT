@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.Login.LoginView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
@@ -202,5 +203,17 @@ public class PreferenceResearchView extends AppCompatActivity {
                 finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        goToMain();
+    }
+
+    //메인 화면으로 넘기기
+    public void goToMain(){
+        Intent intent = new Intent(getApplicationContext(), MainPageView.class);
+        startActivity(intent);
+        finish();
     }
 }
