@@ -59,39 +59,108 @@ public class MyPageView extends AppCompatActivity {
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         userid = userinfo.getString("inputId", "none");
 
-        ApiClient.getApiService().getUserInfo(userid)
-                .enqueue(new Callback<MyInfo>() {
+        Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
+
+        //Log.d("Tag", "마이페이지call 보낸 후");
+//        ApiClient.test();
+
+        call.enqueue(new Callback<MyInfo>() {
             @Override
             public void onResponse(Call<MyInfo> call, Response<MyInfo> response) {
                 if(!response.isSuccessful()) {
-                    user_info.setText("code:"+response.code());
-                    Log.d("Tag", String.valueOf(response.headers()));
+                    user_info.setText("code:"+response.code()+", userinfo: "+userid);
                     return;
                 }
-                Log.d("Tag", String.valueOf(response.headers()));
+
                 MyInfo info = response.body();
+                Log.d("Tag", response.body().toString());
+
+                //서버 데이터 받아오기
+                String imoji_server = info.getImoji();
+                String nickname_server = info.getNickname();
+                Integer gender_server = info.getGender();
+                Integer age_server = info.getAge();
+                Integer friendship_server = info.getFriendship();
+                Integer climbingmate_server = info.getClimbingMate();
+                Double level_server = info.getClimbingLevel();
+
+
+                //이모지 변환
                 String imoji = "";
-                if(info.getImoji()=="BEAR") {
+                if(imoji_server.equals("BEAR")) {
                     imoji = "🐻";
-                } else if(info.getImoji() == "TIGER") {
+                } else if(imoji_server.equals("TIGER")) {
                     imoji = "🐯";
-                } else if(info.getImoji() == "RABBIT") {
+                } else if(imoji_server.equals("RABBIT")) {
                     imoji = "🐰";
-                } else if(info.getImoji() == "TIGER") {
-                    imoji = "🐯";
+                } else if(imoji_server.equals("FOX")) {
+                    imoji = "🦊";
+                } else {
+                    imoji = "😊";
                 }
-                user_icon.append(info.getImoji());
-                user_nickname.append(info.getNickname());
+                user_icon.setText(imoji);
 
-                String content="";
-                content += "imoji: " + info.getImoji() +"\n";
-                content += "imoji: " + info.getGender() +"\n";
-                content += "imoji: " + info.getAge() +"\n";
-                content += "imoji: " + info.getFriendship() +"\n";
-                content += "imoji: " + info.getClimbingMate() +"\n";
-                content += "imoji: " + info.getClimbingLevel() +"\n\n";
+                //닉네임
+                user_nickname.setText(nickname_server);
 
-                user_info.append(content);
+                //선호도 값 텍스트로 변환
+                String prefer = "";
+                if(friendship_server == 1 && climbingmate_server == 1) {
+                    prefer = "친목+등산";
+                } else if(friendship_server == 1 && climbingmate_server == 0) {
+                    prefer = "친목 위주";
+                } else if(friendship_server == 0 && climbingmate_server == 1) {
+                    prefer = "등산 위주";
+                }
+
+                //등산능력 값 텍스트로 변환
+                String level = "";
+                if(level_server == 0) {
+                    level = "입문자";
+                } else if(level_server == 0.33) {
+                    level = "경험자";
+                } else if(level_server == 0.66) {
+                    level = "숙련가";
+                } else if(level_server == 1) {
+                    level = "전문가";
+                }
+
+                //성별 값 텍스트로 변환
+                String gender = "";
+                if(gender_server == 0) {
+                    gender = "남";
+                } else if(gender_server == 1) {
+                    gender = "여";
+                }
+
+                //나이 값 텍스트로 변환
+                String age = "";
+                switch (age_server) {
+                    case 1:
+                        age = "10대";
+                        break;
+                    case 2:
+                        age = "20대";
+                        break;
+                    case 3:
+                        age = "30대";
+                        break;
+                    case 4:
+                        age = "40대";
+                        break;
+                    case 5:
+                        age = "50대";
+                        break;
+                    case 6:
+                        age = "60대 이상";
+                        break;
+                    default:
+                        age = "X";
+                        break;
+                }
+
+                //사용자 정보 추가
+                user_info.setText(level+"/"+prefer+"/"+gender+"/"+age);
             }
 
             @Override
@@ -150,8 +219,28 @@ public class MyPageView extends AppCompatActivity {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout_dialog.dismiss(); // 다이얼로그 닫기
-                show_dialog2();
+                Log.d("Tag", "로그아웃 보내기 전");
+                ApiClient.test();
+
+                Call<String> call = ApiClient.getApiService().postLogout();
+
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(!response.isSuccessful()) {
+                            Log.d("Tag", "로그아웃 실패 코드: "+response.code());
+                        }
+                        Log.d("Tag", "로그아웃 response: "+response.body());
+                        Log.d("Tag", "로그아웃 성공 코드: "+response.code());
+                        logout_dialog.dismiss(); // 다이얼로그 닫기
+                        show_dialog2();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("Tag", "에러 코드: "+t.getMessage());
+                    }
+                });
             }
         });
     }
@@ -166,13 +255,21 @@ public class MyPageView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout_dialog2.dismiss(); // 다이얼로그 닫기
-                Intent intent = new Intent(getApplicationContext(), LoginView.class);
-                startActivity(intent);
-                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor autoLogin = userinfo.edit();
-                autoLogin.clear();
-                autoLogin.commit();
+                Log.d("Tag","userid값 확인1: "+userid);
+                goToLogin();
+                Log.d("Tag","userid값 확인2: "+userid);
+
+//                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+//                SharedPreferences.Editor autoLogin = userinfo.edit();
+//                autoLogin.clear();
+//                autoLogin.commit();
             }
         });
+    }
+
+    public void goToLogin(){
+        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        startActivity(intent);
+        finish();
     }
 }

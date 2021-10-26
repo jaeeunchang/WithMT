@@ -8,10 +8,12 @@ import com.cookandroid.withmt.PreferenceCheck.Preference;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -19,6 +21,7 @@ import retrofit2.http.Query;
 import com.cookandroid.withmt.Login.LoginRequest;
 import com.cookandroid.withmt.SignUp.SignUpRequest;
 import com.cookandroid.withmt.SignUp.SignUpResponse;
+import com.google.gson.JsonObject;
 import com.cookandroid.withmt.Writing.WritingRequest;
 
 public interface ApiInterface {
@@ -37,30 +40,29 @@ public interface ApiInterface {
     @POST("users")
     Call<SignUpResponse> postSignUp(@Body SignUpRequest signupRequest);
 
-    //초기 설문조사값 입력
+    //설문조사 입력 및 수정
     @PUT("users/taste")
     Call<Preference> putPreference(@Body Preference param);
-//    Call<Preference> putPreference(@Field("data") String data);
 
     //마이페이지-사용자 정보조회
-//    @GET("users?userId={userid}")
-//    Call<MyInfo> getUserInfo(@Path("userid") String userId);
     @GET("users")
-    Call<MyInfo> getUserInfo(@Query("userId") String userid);
+    Call<MyInfo> getUserInfo(@Query("userId") String userId);
 
     //로그아웃
-    @FormUrlEncoded
     @POST("logout")
-    Call<Logout> postLogout(@Body Logout post);
-//    Call<Data> postData(@FieldMap HashMap<String, Object> param);
+    Call<String> postLogout();
 
     //게시글 최신순 불러오기
-    @GET("board")
-    Call<List<MainList>> getFunc(@Query("data") String data);
+//    @GET("board")
+//    Call<List<MainList>> getAll();
 
-//    @FormUrlEncoded
-//    @PUT("users/update/1")
-//    Call<ResponseBody> putFunc(@Field("data") String data);
+    @GET("board")
+    Call<MainList> getAll();
+
+    //게시글 추천순 불러오기
+    @GET("board/recommend")
+//    Call<List<MainList>> getRecommend();
+    Call<MainList> getRecommend();
 
     //게시글 작성
     @POST("board/write")

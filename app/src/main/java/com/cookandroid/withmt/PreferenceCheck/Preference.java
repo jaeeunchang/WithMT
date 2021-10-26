@@ -2,6 +2,8 @@ package com.cookandroid.withmt.PreferenceCheck;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
+
 public class Preference {
 
     @SerializedName("friendship")
@@ -82,17 +84,19 @@ public class Preference {
         this.frequency = frequency;
     }
 
+    public Preference(String climbingLevel, String difficulty, String exercise, String frequency, String friendship, String climbingMate ) {
+        this.climbingLevel = climbingLevel;
+        this.difficulty = difficulty;
+        this.exercise = exercise;
+        this.frequency = frequency;
+        this.friendship = friendship;
+        this.climbingMate = climbingMate;
+    }
+
     @Override
     public String toString()
     {
         return "PutPreference [difficulty = "+difficulty+", friendship = "+friendship+", climbingMate = "+climbingMate+", exercise = "+exercise+", climbingLevel = "+climbingLevel+", frequency = "+frequency+"]";
     }
-
-//    public Preference(String difficulty, int id, String title, String body) {
-//        this.difficulty = difficulty;
-//        this.id = id;
-//        this.title = title;
-//        this.body = body;
-//    }
 
 }

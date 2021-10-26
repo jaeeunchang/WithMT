@@ -18,9 +18,6 @@ import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
 
-import java.net.CookieManager;
-
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -101,13 +98,13 @@ public class LoginView extends AppCompatActivity {
                 LoginRequest loginRequest = new LoginRequest(userid, userpw);
 
                 //retrofit 생성
-
-                ApiClient.getApiService().postLogin(loginRequest)
-                    .enqueue(new Callback<String>() {
+                Call<String> call = ApiClient.getApiService().postLogin(loginRequest);
+                call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if(response.isSuccessful()) {
                             Log.d("Tag", String.valueOf(response.headers()));
+                            Log.d("Tag", "로그인 성공");
                             goToMain();
                             SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
                             SharedPreferences.Editor autoLogin = userinfo.edit();
@@ -116,7 +113,7 @@ public class LoginView extends AppCompatActivity {
                             autoLogin.commit();
                         }
                         else {
-//                            Log.d("Tag", "로그인 실패");
+                            Log.d("Tag", "로그인 실패");
                             setEditBg();
                         }
                     }
@@ -139,5 +136,12 @@ public class LoginView extends AppCompatActivity {
     public void setEditBg(){
         edId.setBackgroundResource(R.drawable.et_error);
         edPW.setBackgroundResource(R.drawable.et_error);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Tag", "Destroy");
+        ApiClient.test();
     }
 }

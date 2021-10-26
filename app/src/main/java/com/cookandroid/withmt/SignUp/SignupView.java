@@ -304,4 +304,5 @@ public class SignupView extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editName.getWindowToken(),0);
         imm.hideSoftInputFromWindow(confirmPW.getWindowToken(), 0);
     }
+
 }

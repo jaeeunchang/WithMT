@@ -1,48 +1,40 @@
 package com.cookandroid.withmt.MainPage;
 
+import com.google.gson.annotations.SerializedName;
+
 public class MainList {
-    private String titleStr ;
-    private String dateStr ;
-    private String genderStr ;
-    private String ageStr ;
-//    private String user_iconStr ;
-//    private String userStr ;
 
-    public void setTitle(String title) {
-        titleStr = title ;
-    }
-    public void setDate(String date) {
-        dateStr = date ;
-    }
-    public void setGender(String gender) {
-        genderStr = gender ;
-    }
-    public void setAge(String age) {
-        ageStr = age ;
-    }
-//    public void setUserIcon(String user_icon) {
-//        user_iconStr = user_icon ;
-//    }
-//    public void setUser(String user) {
-//        userStr = user ;
-//    }
+    @SerializedName("user")
+    private UserData user;
 
-    public String getTitle() {
-        return this.titleStr ;
+    @SerializedName("board")
+    private BoardData board;
+
+    @SerializedName("distance")
+    private Double distance;
+
+    public UserData getUser() {
+        return user;
     }
-    public String getDate() {
-        return this.dateStr ;
+
+    public void setUser(UserData user) {
+        this.user = user;
     }
-    public String getGender() {
-        return this.genderStr ;
+
+    public BoardData getBoard() {
+        return board;
     }
-    public String getAge() {
-        return this.ageStr ;
+
+    public void setBoard(BoardData board) {
+        this.board = board;
     }
-//    public String getUserIcon() {
-//        return this.user_iconStr ;
-//    }
-//    public String getUser() {
-//        return this.userStr ;
-//    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
 }
