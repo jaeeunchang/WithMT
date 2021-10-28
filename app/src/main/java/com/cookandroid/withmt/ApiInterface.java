@@ -6,6 +6,7 @@ import com.cookandroid.withmt.MyWriting.MyWritingResponse;
 import com.cookandroid.withmt.PreferenceCheck.Preference;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -21,6 +22,7 @@ import com.cookandroid.withmt.SignUp.SignUpRequest;
 import com.cookandroid.withmt.SignUp.SignUpResponse;
 import com.cookandroid.withmt.BoardDetail.BoardDetailResponse;
 import com.cookandroid.withmt.Writing.WritingRequest;
+import com.cookandroid.withmt.Writing.WritingView;
 
 public interface ApiInterface {
     // 로그인
@@ -64,7 +66,7 @@ public interface ApiInterface {
 
     //게시글 작성
     @POST("board/write")
-    Call<String> postWriting(@Body WritingRequest writingRequest);
+    Call<Integer> postWriting(@Body WritingRequest writingRequest);
 
     //마이페이지-글 조회
     @GET("board")
@@ -72,7 +74,7 @@ public interface ApiInterface {
 
     //게시글 상세 조회
     @GET("board/{boardId}")
-    Call<BoardDetailResponse> getBoard(@Path("boardId") int boardId);
+    Call<List<BoardDetailResponse>> getBoard(@Path("boardId") int boardId);
 
     //게시글 삭제
     @DELETE("board/{boardId}")
@@ -80,5 +82,5 @@ public interface ApiInterface {
 
     //게시글 수정
     @PUT("board/update/{boardId}")
-    Call<String> putBoard(@Path("boardId") int boardId);
+    Call<String> putBoard(@Path("boardId") int boardId, @Body WritingRequest writingRequest);
 }

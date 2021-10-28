@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.Login.LoginView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
@@ -205,8 +206,18 @@ public class PreferenceResearchView extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginView.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

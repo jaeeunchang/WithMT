@@ -36,7 +36,6 @@ public class ApiClient{
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okHttpClient)
                     .build();
-
         }
         return retrofit;
     }

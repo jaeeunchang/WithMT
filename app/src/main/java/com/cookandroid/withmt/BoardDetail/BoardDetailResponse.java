@@ -23,4 +23,12 @@ public class BoardDetailResponse {
     public void setBoard(Board board) {
         this.board = board;
     }
+
+    @Override
+    public String toString() {
+        return "BoardDetailResponse{" +
+                "user=" + user +
+                ", board=" + board +
+                '}';
+    }
 }

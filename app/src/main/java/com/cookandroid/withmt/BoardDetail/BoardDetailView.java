@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -20,15 +18,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cookandroid.withmt.ApiClient;
-import com.cookandroid.withmt.MyPage.MyInfo;
+import com.cookandroid.withmt.MyWriting.MywritingView;
 import com.cookandroid.withmt.R;
-import com.cookandroid.withmt.Writing.ModifyWriting;
 import com.cookandroid.withmt.Writing.WritingView;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,8 +66,12 @@ public class BoardDetailView extends AppCompatActivity {
         btnjoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "유효하지 않는 링크입니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -79,62 +79,62 @@ public class BoardDetailView extends AppCompatActivity {
 
         // 게시글 상세 받아오기
         ApiClient.getApiService().getBoard(id)
-            .enqueue(new Callback<BoardDetailResponse>() {
+            .enqueue(new Callback<List<BoardDetailResponse>>() {
                 @Override
-                public void onResponse(Call<BoardDetailResponse> call, Response<BoardDetailResponse> response) {
+                public void onResponse(Call<List<BoardDetailResponse>> call, Response<List<BoardDetailResponse>> response) {
                     if(response.isSuccessful()){
-                        BoardDetailResponse board = response.body();
+                        List<BoardDetailResponse> res = response.body();
                         // 본문 세팅
-                        title.setText(board.getBoard().getTitle());
-                        date.setText(board.getBoard().getDate());
-                        maxNum.setText(String.valueOf(board.getBoard().getMember())+"명");
-                        switch (board.getBoard().getGender()){
+                        title.setText(res.get(0).getBoard().getTitle());
+                        date.setText(res.get(0).getBoard().getDate());
+                        maxNum.setText(String.valueOf(res.get(0).getBoard().getMember())+"명");
+                        switch (res.get(0).getBoard().getGender()){
                             case 0: chosenGender.setText("남성만"); break;
                             case 1: chosenGender.setText("여성만"); break;
                             case 2: chosenGender.setText("성별 무관"); break;
                         }
-                        content.setText(board.getBoard().getContent());
-                        uri = Uri.parse(board.getBoard().getLink());
+                        content.setText(res.get(0).getBoard().getContent());
+                        uri = Uri.parse(res.get(0).getBoard().getLink());
 
                         //사용자 정보 세팅
                         //이모지
-                        switch (board.getUser().getImoji()){
+                        switch (res.get(0).getUser().getImoji()){
                             case "BEAR": userIcon.setText("🐻"); break;
                             case "TIGER": userIcon.setText("🐯"); break;
                             case "RABBIT": userIcon.setText("🐰"); break;
                             case "FOX": userIcon.setText("🦊"); break;
                         }
                         //닉네임
-                        userNic.setText(board.getUser().getNickname() + " 님");
+                        userNic.setText(res.get(0).getUser().getNickname() + " 님");
                         //등산 목적
                         String prefer = "";
-                        if(board.getUser().getFriendship() == 1 && board.getUser().getClimbingMate() == 1) {
+                        if(res.get(0).getUser().getFriendship() == 1 && res.get(0).getUser().getClimbingMate() == 1) {
                             prefer = "친목+등산";
-                        } else if(board.getUser().getFriendship() == 1 && board.getUser().getClimbingMate() == 0) {
+                        } else if(res.get(0).getUser().getFriendship() == 1 && res.get(0).getUser().getClimbingMate() == 0) {
                             prefer = "친목 위주";
-                        } else if(board.getUser().getFriendship() == 0 && board.getUser().getClimbingMate() == 1) {
+                        } else if(res.get(0).getUser().getFriendship() == 0 && res.get(0).getUser().getClimbingMate() == 1) {
                             prefer = "등산 위주";
                         }
                         //숙련도
                         String level = "";
-                        if(board.getUser().getClimbingLevel() == 0) {
+                        if(res.get(0).getUser().getClimbingLevel() == 0) {
                             level = "입문자";
-                        } else if(board.getUser().getClimbingLevel() == 0.33) {
+                        } else if(res.get(0).getUser().getClimbingLevel() == 0.33) {
                             level = "경험자";
-                        } else if(board.getUser().getClimbingLevel() == 0.66) {
+                        } else if(res.get(0).getUser().getClimbingLevel() == 0.66) {
                             level = "숙련가";
-                        } else if(board.getUser().getClimbingLevel() == 1) {
+                        } else if(res.get(0).getUser().getClimbingLevel() == 1) {
                             level = "전문가";
                         }
                         //성별
                         String gender = "";
-                        switch (board.getUser().getGender()){
+                        switch (res.get(0).getUser().getGender()){
                             case 0: gender = "남성"; break;
                             case 1: gender = "여성"; break;
                         }
                         //연령대
                         String age = "";
-                        switch (board.getUser().getAge()){
+                        switch (res.get(0).getUser().getAge()){
                             case 1: age = "10대"; break;
                             case 2: age = "20대"; break;
                             case 3: age = "30대"; break;
@@ -143,12 +143,11 @@ public class BoardDetailView extends AppCompatActivity {
                             case 6: age = "60대 이상"; break;
                         }
                         userInfo.setText(level+"/"+prefer+"/"+gender+"/"+age);
-
                     }
                 }
 
                 @Override
-                public void onFailure(Call<BoardDetailResponse> call, Throwable t) {
+                public void onFailure(Call<List<BoardDetailResponse>> call, Throwable t) {
                     Log.e("Tag", String.valueOf(t));
                 }
             });
@@ -172,8 +171,9 @@ public class BoardDetailView extends AppCompatActivity {
             case R.id.tool_modify:
                 Intent intent = getIntent();
                 boardid = intent.getIntExtra("boardId", 0);
-                Intent modifyintent = new Intent(getApplicationContext(), ModifyWriting.class);
+                Intent modifyintent = new Intent(getApplicationContext(), WritingView.class);
                 modifyintent.putExtra("boardId", boardid);
+                startActivity(modifyintent);
                 return true;
             //메뉴 글 삭제
             case R.id.tool_del:
@@ -186,8 +186,6 @@ public class BoardDetailView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     public void showDialogDel(){
         CheckDel.show();
         CheckDel.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -198,16 +196,19 @@ public class BoardDetailView extends AppCompatActivity {
             case R.id.btnNo:
                 CheckDel.dismiss();
                 break;
+            // 글삭제 확인 버튼
             case R.id.btnOk:
                 Intent intent = getIntent();
                 boardid = intent.getIntExtra("boardId", 0);
+                Log.d("Tag", String.valueOf(boardid));
                 ApiClient.getApiService().deleteBoard(boardid)
                         .enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 if(response.isSuccessful()){
-                                    Log.d("Tag", String.valueOf(response.code()));
-                                    finish();
+                                    Intent MyListIntent = new Intent(getApplicationContext(), MywritingView.class);
+                                    MyListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(MyListIntent);
                                 }
                             }
 

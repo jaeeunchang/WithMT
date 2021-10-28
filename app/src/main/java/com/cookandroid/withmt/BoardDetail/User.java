@@ -84,4 +84,17 @@ public class User {
         this.climbingLevel = climbingLevel;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", imoji='" + imoji + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", friendship=" + friendship +
+                ", climbingMate=" + climbingMate +
+                ", climbingLevel=" + climbingLevel +
+                '}';
+    }
 }

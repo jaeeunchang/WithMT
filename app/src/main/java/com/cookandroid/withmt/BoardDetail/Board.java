@@ -73,4 +73,17 @@ public class Board {
     public void setLink(String link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", date='" + date + '\'' +
+                ", member=" + member +
+                ", gender=" + gender +
+                ", content='" + content + '\'' +
+                ", link='" + link + '\'' +
+                '}';
+    }
 }

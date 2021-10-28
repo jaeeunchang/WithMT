@@ -3,8 +3,6 @@ package com.cookandroid.withmt.Writing;
 import com.google.gson.annotations.SerializedName;
 
 public class WritingRequest {
-    @SerializedName("userId")
-    private String userId;
     @SerializedName("title")
     private String title;
     @SerializedName("member")
@@ -18,26 +16,12 @@ public class WritingRequest {
     @SerializedName("date")
     private String date;
 
-    public WritingRequest(String userId, String title, int member, String link, String content, int gender, String date){
-        this.userId = userId;
+    public WritingRequest(String title, int member, String link, String content, int gender, String date){
         this.title = title;
         this.member = member;
         this.link = link;
         this.content = content;
         this.gender = gender;
         this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "WritingRequest{" +
-                "userId='" + userId + '\'' +
-                ", title='" + title + '\'' +
-                ", member=" + member +
-                ", link='" + link + '\'' +
-                ", content='" + content + '\'' +
-                ", gender=" + gender +
-                ", date='" + date + '\'' +
-                '}';
     }
 }

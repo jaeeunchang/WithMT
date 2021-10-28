@@ -41,7 +41,6 @@ public class SignupView extends AppCompatActivity {
     TextView alertname, alertId;
     String userid, userpw, usernic, imoji, gender, age;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +60,8 @@ public class SignupView extends AppCompatActivity {
 
         btnNew = (Button) findViewById(R.id.btnNew);
         ImageButton btnX = (ImageButton) findViewById(R.id.btnClose);
+
+        imoji = "";
 
         Spinner spinner = (Spinner) findViewById(R.id.spinAge);
         final String[] agelist = {"10대", "20대", "30대", "40대", "50대", "60대 이상"};
@@ -99,6 +100,32 @@ public class SignupView extends AppCompatActivity {
                     case R.id.rdFemale: gender = "1"; break;
                 }
             }
+        });
+
+        //닉네임이나 아이디 사용자 확인 후 수정할 경우
+        editName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                alertname.setText("중복 확인을 해주세요.");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        editId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                alertId.setText("중복 확인을 해주세요.");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
         });
 
         TextView pwlegthcheck = (TextView)findViewById(R.id.pwlegthcheck);
@@ -151,8 +178,8 @@ public class SignupView extends AppCompatActivity {
                         confirmPW.getText().toString().equals("") ||
                         pwlegthcheck.getVisibility() == View.VISIBLE ||
                         radioGroup.getCheckedRadioButtonId() == -1 ||
-                        alertname.getText() == "이미 사용 중인 닉네임입니다." ||
-                        alertId.getText() == "이미 사용 중인 아이디입니다."){
+                        !alertname.getText().equals("사용 가능한 닉네임입니다.") ||
+                        !alertId.getText().equals("사용 가능한 아이디입니다.")) {
                     Toast tmsg = Toast.makeText(SignupView.this, "빠진 부분 없이 전부 입력해주세요.", Toast.LENGTH_SHORT);
                     tmsg.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
                     tmsg.show();
@@ -219,7 +246,7 @@ public class SignupView extends AppCompatActivity {
                          }
                          else{
                              if(editName.getText().toString().equals("")){
-                                 alertname.setText("이미 사용 중인 닉네임입니다.");
+                                 alertname.setText("사용할 수 없는 닉네임입니다.");
                                  alertname.setVisibility(View.VISIBLE);
                              }
                              else{
@@ -252,7 +279,7 @@ public class SignupView extends AppCompatActivity {
                         }
                         else{
                             if(editId.getText().toString().equals("")){
-                                alertId.setText("이미 사용 중인 아이디입니다.");
+                                alertId.setText("사용할 수 없는 아이디입니다.");
                                 alertId.setVisibility(View.VISIBLE);
                             }
                             else{
