@@ -8,7 +8,7 @@ public class WritingRequest {
     @SerializedName("title")
     private String title;
     @SerializedName("member")
-    private String member;
+    private int member;
     @SerializedName("link")
     private String link;
     @SerializedName("content")
@@ -18,7 +18,7 @@ public class WritingRequest {
     @SerializedName("date")
     private String date;
 
-    public WritingRequest(String userId, String title, String member, String link, String content, int gender, String date){
+    public WritingRequest(String userId, String title, int member, String link, String content, int gender, String date){
         this.userId = userId;
         this.title = title;
         this.member = member;
@@ -26,5 +26,18 @@ public class WritingRequest {
         this.content = content;
         this.gender = gender;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "WritingRequest{" +
+                "userId='" + userId + '\'' +
+                ", title='" + title + '\'' +
+                ", member=" + member +
+                ", link='" + link + '\'' +
+                ", content='" + content + '\'' +
+                ", gender=" + gender +
+                ", date='" + date + '\'' +
+                '}';
     }
 }

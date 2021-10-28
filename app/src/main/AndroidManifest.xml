@@ -28,6 +28,7 @@
         <activity android:name=".MyWriting.MywritingView"/>
         <activity android:name=".SignUp.SignupView"/>
         <activity android:name=".Writing.WritingView"/>
-        <activity android:name=".WrittenPage.WrittenpageView"/>
+        <activity android:name=".BoardDetail.BoardDetailView"/>
+        <activity android:name=".Writing.ModifyWriting"/>
     </application>
 </manifest>

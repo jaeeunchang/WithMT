@@ -1,27 +1,25 @@
 package com.cookandroid.withmt;
 
 import com.cookandroid.withmt.MainPage.MainList;
-import com.cookandroid.withmt.MyPage.Logout;
 import com.cookandroid.withmt.MyPage.MyInfo;
 import com.cookandroid.withmt.MyWriting.MyWritingResponse;
 import com.cookandroid.withmt.PreferenceCheck.Preference;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import com.cookandroid.withmt.Login.LoginRequest;
 import com.cookandroid.withmt.SignUp.SignUpRequest;
 import com.cookandroid.withmt.SignUp.SignUpResponse;
-import com.google.gson.JsonObject;
+import com.cookandroid.withmt.BoardDetail.BoardDetailResponse;
 import com.cookandroid.withmt.Writing.WritingRequest;
 
 public interface ApiInterface {
@@ -71,4 +69,16 @@ public interface ApiInterface {
     //마이페이지-글 조회
     @GET("board")
     Call<List<MyWritingResponse>> getMyWriting(@Query("userId") String userid);
+
+    //게시글 상세 조회
+    @GET("board/{boardId}")
+    Call<BoardDetailResponse> getBoard(@Path("boardId") int boardId);
+
+    //게시글 삭제
+    @DELETE("board/{boardId}")
+    Call<String> deleteBoard(@Path("boardId") int boardId);
+
+    //게시글 수정
+    @PUT("board/update/{boardId}")
+    Call<String> putBoard(@Path("boardId") int boardId);
 }

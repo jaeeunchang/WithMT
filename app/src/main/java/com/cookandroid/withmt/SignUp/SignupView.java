@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -188,7 +189,7 @@ public class SignupView extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(Call<String> call, Throwable t) {
-
+                                        Log.d("Tag",String.valueOf(t));
                                     }
                                 });
                             }
@@ -217,8 +218,14 @@ public class SignupView extends AppCompatActivity {
                              alertname.setVisibility(View.VISIBLE);
                          }
                          else{
-                             alertname.setText("사용 가능한 닉네임입니다.");
-                             alertname.setVisibility(View.VISIBLE);
+                             if(editName.getText().toString().equals("")){
+                                 alertname.setText("이미 사용 중인 닉네임입니다.");
+                                 alertname.setVisibility(View.VISIBLE);
+                             }
+                             else{
+                                 alertname.setText("사용 가능한 닉네임입니다.");
+                                 alertname.setVisibility(View.VISIBLE);
+                             }
                          }
                      }
 
@@ -244,8 +251,14 @@ public class SignupView extends AppCompatActivity {
                             alertId.setVisibility(View.VISIBLE);
                         }
                         else{
-                            alertId.setText("사용 가능한 아이디입니다.");
-                            alertId.setVisibility(View.VISIBLE);
+                            if(editId.getText().toString().equals("")){
+                                alertId.setText("이미 사용 중인 아이디입니다.");
+                                alertId.setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                alertId.setText("사용 가능한 아이디입니다.");
+                                alertId.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
 
@@ -264,6 +277,7 @@ public class SignupView extends AppCompatActivity {
         Button tiger = (Button)findViewById(R.id.profile_T);
         Button rabbit = (Button)findViewById(R.id.profile_R);
         Button fox = (Button)findViewById(R.id.profile_F);
+        imoji = "";
         switch (v.getId()){
             case R.id.profile_B:
                 imoji = "BEAR";

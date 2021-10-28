@@ -60,7 +60,6 @@ public class LoginView extends AppCompatActivity {
             case R.id.btnSignup:
                 intent = new Intent(getApplicationContext(), SignupView.class);
                 startActivity(intent);
-                finish();
                 break;
 
             //로그인 클릭 시
