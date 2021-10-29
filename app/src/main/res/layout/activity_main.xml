@@ -73,15 +73,6 @@
             android:visibility="invisible"
             android:hint="2021-00-00"/>
 
-<!--        <Spinner-->
-<!--            android:id="@+id/menu_spinner"-->
-<!--            android:layout_width="110dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:layout_marginRight="60dp"-->
-<!--            android:entries="@array/main_menu" />-->
-
         <Button
             android:id="@+id/btn_calendar"
             android:background="@drawable/ic_calendar"
@@ -100,7 +91,8 @@
         <ListView
             android:id="@+id/lv_board"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textFilterEnabled="true"/>
 
         <Button
             android:id="@+id/btn_write"

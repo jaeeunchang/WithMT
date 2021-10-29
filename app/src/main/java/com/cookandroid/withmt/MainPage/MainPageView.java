@@ -23,7 +23,7 @@ import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.MyPage.MyPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Writing.WritingView;
-import com.cookandroid.withmt.WrittenPage.WrittenpageView;
+import com.cookandroid.withmt.BoardDetail.BoardDetailView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +52,6 @@ public class MainPageView extends AppCompatActivity {
 
         li = new ArrayList<WritingList>();
 
-
         adapter = new MyAdapter(getApplicationContext(), R.layout.main_list, li);
         ListView lv_board = (ListView) findViewById(R.id.lv_board);
 
@@ -68,6 +67,7 @@ public class MainPageView extends AppCompatActivity {
         String[] list = getResources().getStringArray(R.array.main_menu);
         menu_spinner.setSelection(0);
 
+
         menu_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -75,11 +75,11 @@ public class MainPageView extends AppCompatActivity {
                 if (list[i].equals("추천순")) {
 //                    Toast.makeText(getApplicationContext(), list[i] + " 선택되었습니다", Toast.LENGTH_SHORT).show();
 
-                    Call <List<BoardResponse>> call = ApiClient.getApiService().getRecommend();
+                    Call<List<BoardResponse>> call = ApiClient.getApiService().getRecommend();
                     call.enqueue(new Callback<List<BoardResponse>>() {
                         @Override
                         public void onResponse(Call<List<BoardResponse>> call, Response<List<BoardResponse>> response) {
-                            if(!response.isSuccessful()) {
+                            if (!response.isSuccessful()) {
                                 Log.d("TagMain", String.valueOf(response.code()));
                                 return;
                             }
@@ -90,7 +90,7 @@ public class MainPageView extends AppCompatActivity {
                             li.clear();
                             adapter.notifyDataSetChanged();
 
-                            for(BoardResponse board : list) {
+                            for (BoardResponse board : list) {
                                 //서버 데이터 받아오기
                                 Integer boardId = board.getBoardId();
                                 String title_server = board.getTitle();
@@ -101,31 +101,32 @@ public class MainPageView extends AppCompatActivity {
 
                                 //성별 값 텍스트로 변환
                                 String gender = "";
-                                if(gender_server == 0) {
+                                if (gender_server == 0) {
                                     gender = "남자만";
-                                } else if(gender_server == 1) {
+                                } else if (gender_server == 1) {
                                     gender = "여자만";
-                                } else if(gender_server == 2) {
+                                } else if (gender_server == 2) {
                                     gender = "상관없음";
                                 }
 
                                 //이모지 변환
                                 String imoji = "";
-                                if(imoji_server.equals("BEAR")) {
+                                if (imoji_server.equals("BEAR")) {
                                     imoji = "🐻";
-                                } else if(imoji_server.equals("TIGER")) {
+                                } else if (imoji_server.equals("TIGER")) {
                                     imoji = "🐯";
-                                } else if(imoji_server.equals("RABBIT")) {
+                                } else if (imoji_server.equals("RABBIT")) {
                                     imoji = "🐰";
-                                } else if(imoji_server.equals("FOX")) {
+                                } else if (imoji_server.equals("FOX")) {
                                     imoji = "🦊";
                                 } else {
                                     imoji = "😊";
                                 }
-                                li.add(new WritingList(boardId,title_server,date_server, gender, imoji, nickname_server));
+                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server));
                                 lv_board.setAdapter(adapter);
                             }
                         }
+
                         @Override
                         public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
                             Log.d("TagMain", t.getMessage());
@@ -140,7 +141,7 @@ public class MainPageView extends AppCompatActivity {
                     call.enqueue(new Callback<List<BoardResponse>>() {
                         @Override
                         public void onResponse(Call<List<BoardResponse>> call, Response<List<BoardResponse>> response) {
-                            if(!response.isSuccessful()) {
+                            if (!response.isSuccessful()) {
                                 Log.d("TagMain", String.valueOf(response.code()));
                                 return;
                             }
@@ -151,7 +152,7 @@ public class MainPageView extends AppCompatActivity {
                             li.clear();
                             adapter.notifyDataSetChanged();
 
-                            for(BoardResponse board : list) {
+                            for (BoardResponse board : list) {
                                 //서버 데이터 받아오기
                                 Integer boardId = board.getBoardId();
                                 String title_server = board.getTitle();
@@ -162,32 +163,33 @@ public class MainPageView extends AppCompatActivity {
 
                                 //성별 값 텍스트로 변환
                                 String gender = "";
-                                if(gender_server == 0) {
+                                if (gender_server == 0) {
                                     gender = "남자만";
-                                } else if(gender_server == 1) {
+                                } else if (gender_server == 1) {
                                     gender = "여자만";
-                                } else if(gender_server == 2) {
+                                } else if (gender_server == 2) {
                                     gender = "상관없음";
                                 }
 
                                 //이모지 변환
                                 String imoji = "";
-                                if(imoji_server.equals("BEAR")) {
+                                if (imoji_server.equals("BEAR")) {
                                     imoji = "🐻";
-                                } else if(imoji_server.equals("TIGER")) {
+                                } else if (imoji_server.equals("TIGER")) {
                                     imoji = "🐯";
-                                } else if(imoji_server.equals("RABBIT")) {
+                                } else if (imoji_server.equals("RABBIT")) {
                                     imoji = "🐰";
-                                } else if(imoji_server.equals("FOX")) {
+                                } else if (imoji_server.equals("FOX")) {
                                     imoji = "🦊";
                                 } else {
                                     imoji = "😊";
                                 }
 
-                                li.add(new WritingList(boardId,title_server,date_server, gender, imoji, nickname_server));
+                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server));
                                 lv_board.setAdapter(adapter);
                             }
                         }
+
                         @Override
                         public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
                             Log.d("TagMain", t.getMessage());
@@ -195,6 +197,7 @@ public class MainPageView extends AppCompatActivity {
                     });
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(getApplicationContext(), "아무것도 선택되지 않았습니다.", Toast.LENGTH_LONG).show();
@@ -205,7 +208,7 @@ public class MainPageView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 다음넘어갈 화면
-                Intent intent = new Intent(getApplicationContext(), WrittenpageView.class);
+                Intent intent = new Intent(getApplicationContext(), BoardDetailView.class);
 
                 //boardId값 넘기기
                 intent.putExtra("boardId", li.get(position).boardId);
@@ -223,7 +226,7 @@ public class MainPageView extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 filter_date.setVisibility(View.VISIBLE);
-                filter_date.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                filter_date.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
             }
         }, mYear, mMonth, mDay);
 
@@ -252,11 +255,13 @@ public class MainPageView extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-                // input창에 문자를 입력할때마다 호출된다.
-                // search 메소드를 호출한다.
-                String text = edit_search.getText().toString();
-                search(text);
+            public void afterTextChanged(Editable edit) {
+                String search = edit.toString();
+//                String search = edit_search.getText().toString();
+//                lv_board.setAdapter(adapter).filter(search);
+//                adapter.filter(search);
+//                lv_board.setAdapter(adapter);
+                ((MyAdapter) lv_board.getAdapter()).getFilter().filter(search);
             }
         });
 
@@ -284,13 +289,61 @@ public class MainPageView extends AppCompatActivity {
         });
     }
 
-    class WritingList {
+    public class WritingList {
         Integer boardId;
-        String title = "";
-        String date = "";
+        String nickname;
+        String imoji;
+        String title;
+        String date;
         String gender;
-        String imoji = "";
-        String nickname = "";
+
+        public Integer getBoardId() {
+            return boardId;
+        }
+
+        public void setBoardId(Integer boardId) {
+            this.boardId = boardId;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getImoji() {
+            return imoji;
+        }
+
+        public void setImoji(String imoji) {
+            this.imoji = imoji;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
 
         public WritingList(Integer boardId, String title, String date, String gender, String imoji, String nickname) {
             super();
@@ -301,36 +354,5 @@ public class MainPageView extends AppCompatActivity {
             this.imoji = imoji;
             this.nickname = nickname;
         }
-
-        public WritingList() {
-        }
-    }
-
-    // 검색을 수행하는 메소드
-    public void search(String charText) {
-
-//        // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
-//        search_li.clear();
-//
-//        // 문자 입력이 없을때는 모든 데이터를 보여준다.
-//        if (charText.length() == 0) {
-//            search_li.addAll(li);
-//        }
-//        // 문자 입력을 할때..
-//        else
-//        {
-//            // 리스트의 모든 데이터를 검색한다.
-//            for(int i = 0;i < li.size(); i++)
-//            {
-//                // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
-//                if (li.get(i).toLowerCase().contains(charText))
-//                {
-//                    // 검색된 데이터를 리스트에 추가한다.
-//                    search_li.add(li.get(i));
-//                }
-//            }
-//        }
-//        // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
-//        adapter.notifyDataSetChanged();
     }
 }

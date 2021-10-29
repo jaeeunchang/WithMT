@@ -1,10 +1,13 @@
 package com.cookandroid.withmt.MainPage;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,11 +15,15 @@ import com.cookandroid.withmt.R;
 
 import java.util.ArrayList;
 
-class MyAdapter extends BaseAdapter {
+class MyAdapter extends BaseAdapter implements Filterable{
     Context context;
     int layout;
-    ArrayList<MainPageView.WritingList> li;
     LayoutInflater inf;
+
+    private ArrayList<MainPageView.WritingList> li = new ArrayList<MainPageView.WritingList>();
+    private ArrayList<MainPageView.WritingList> li_search = li;
+    Filter listFilter;
+    private Object BoardResponse;
 
     public MyAdapter(Context context, int layout, ArrayList<MainPageView.WritingList> li) {
         this.context = context;
@@ -42,7 +49,11 @@ class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final int pos = position;
+        final Context context = parent.getContext();
+
         if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inf.inflate(R.layout.main_list, null);
         }
 
@@ -62,5 +73,49 @@ class MyAdapter extends BaseAdapter {
         nickname.setText(w.nickname);
 
         return convertView;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if(listFilter == null) {
+            listFilter = new ListFilter();
+        }
+        return listFilter;
+    }
+
+    private class ListFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if(constraint == null || constraint.length() == 0) {
+                results.values = li_search;
+                results.count = li_search.size();
+            } else {
+                ArrayList<MainPageView.WritingList> li_item = new ArrayList<MainPageView.WritingList>();
+
+                for(MainPageView.WritingList w : li_search) {
+                    Log.d("Tag", "getTitle"+w.getTitle());
+                    if(w.getTitle().toUpperCase().contains(constraint.toString().toUpperCase())) {
+                        li_item.add(w);
+                    }
+                }
+
+                results.values = li_item;
+                results.count = li_item.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            li = (ArrayList<MainPageView.WritingList>) results.values;
+            if(results.count > 0) {
+                notifyDataSetChanged();
+            } else {
+                notifyDataSetInvalidated();
+            }
+        }
     }
 }

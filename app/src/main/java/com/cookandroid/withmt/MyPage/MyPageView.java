@@ -22,6 +22,7 @@ import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.PreferenceChangeView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Login.LoginView;
+import com.cookandroid.withmt.SplashActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,7 +90,6 @@ public class MyPageView extends AppCompatActivity {
                 Integer friendship_server = info.getFriendship();
                 Integer climbingmate_server = info.getClimbingMate();
                 Double level_server = info.getClimbingLevel();
-
 
                 //이모지 변환
                 String imoji = "";
@@ -339,7 +339,9 @@ public class MyPageView extends AppCompatActivity {
     }
 
     public void goToLogin(){
-        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+//        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
