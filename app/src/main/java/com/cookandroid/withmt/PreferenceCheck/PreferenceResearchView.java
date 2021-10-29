@@ -73,6 +73,31 @@ public class PreferenceResearchView extends AppCompatActivity {
 
         Preference p = new Preference("0","0","0","0","1","1");
 
+        Log.d("Tag", "설문조사 call 보내기 전");
+        ApiClient.test();
+
+        Call<Preference> call = ApiClient.getApiService().putPreference(p);
+
+        Log.d("Tag", "설문조사 call 보낸 후");
+        ApiClient.test();
+
+        call.enqueue(new Callback<Preference>() {
+            @Override
+            public void onResponse(Call<Preference> call, Response<Preference> response) {
+                if(!response.isSuccessful()) {
+                    Log.d("Tag", "설문조사 응답코드: "+response.code());
+                    return;
+                }
+                Log.d("Tag", "설문조사 응답코드: "+response.code());
+                Log.d("Tag", "response.body: "+response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Preference> call, Throwable t) {
+                Log.d("Tag", "에러 코드: "+t.getMessage());
+            }
+        });
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

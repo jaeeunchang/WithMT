@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="320dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:backgroundTint="#ffffff"
+    android:background="@drawable/edge_radius2">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:textColor="#000000"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="회원 탈퇴를 하시겠습니까?" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:textColor="#808080"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:text="(탈퇴시, 계정 정보가 모두 삭제됩니다.)" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp">
+
+        <Button
+            android:id="@+id/btn_no"
+            android:layout_width="94dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="53dp"
+            android:background="@drawable/edge_radius2"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="취소" />
+
+        <Button
+            android:id="@+id/btn_yes"
+            android:layout_width="94dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="26dp"
+            android:background="@drawable/edge_radius2"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="확인" />
+    </LinearLayout>
+</LinearLayout>

@@ -98,5 +98,4 @@ public class Preference {
     {
         return "PutPreference [difficulty = "+difficulty+", friendship = "+friendship+", climbingMate = "+climbingMate+", exercise = "+exercise+", climbingLevel = "+climbingLevel+", frequency = "+frequency+"]";
     }
-
 }

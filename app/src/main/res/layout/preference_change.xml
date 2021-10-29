@@ -249,13 +249,13 @@
                 android:orientation="vertical">
 
                 <CheckBox
-                    android:id="@+id/q5c1"
+                    android:id="@+id/cb_friend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="친목 위주"/>
 
                 <CheckBox
-                    android:id="@+id/q5c2"
+                    android:id="@+id/cb_hiking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="등산 위주"/>
