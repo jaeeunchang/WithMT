@@ -130,7 +130,6 @@ public class MainPageView extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
                             Log.d("TagMain", t.getMessage());
-
                         }
                     });
 

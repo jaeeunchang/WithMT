@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class MyInfo {
 
+    @SerializedName("id")
+    private Integer id;
+
     @SerializedName("nickname")
     private String nickname;
 
@@ -29,6 +32,7 @@ public class MyInfo {
     @Override
     public String toString() {
         return "GetMyInfo{" +
+                "id=" + id +
                 "nickname=" + nickname +
                 ", gender=" + gender +
                 ", age=" + age +
@@ -38,15 +42,13 @@ public class MyInfo {
                 ", imoji=" + imoji + '}';
     }
 
-//    public MyInfo(String nickname, Integer gender, Integer age, Integer friendship, Integer climbingMate, Double climbingLevel, String imoji) {
-//        this.nickname = nickname;
-//        this.gender = gender;
-//        this.age = age;
-//        this.friendship = friendship;
-//        this.climbingMate = climbingMate;
-//        this.climbingLevel = climbingLevel;
-//        this.imoji = imoji;
-//    }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNickname() {
         return nickname;
