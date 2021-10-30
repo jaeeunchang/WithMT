@@ -53,9 +53,6 @@ public interface ApiInterface {
     Call<String> postLogout();
 
     //게시글 최신순 불러오기
-//    @GET("board")
-//    Call<List<MainList>> getAll();
-
     @GET("board")
     Call<List<BoardResponse>> getAll();
 
@@ -71,8 +68,12 @@ public interface ApiInterface {
     @GET("board")
     Call<List<MyWritingResponse>> getMyWriting(@Query("userId") String userid);
 
-    @DELETE("users")
-    Call<String> deleteUser(@Query("userId") String userId);
+    //유저 계정 삭제
+//    @DELETE("users")
+//    Call<String> deleteUser(@Query("userId") int id);
+
+    @DELETE("users/{delete_id}")
+    Call<String> deleteUser(@Path("delete_id") int delete_id);
 
     //게시글 상세 조회
     @GET("board/{boardId}")
