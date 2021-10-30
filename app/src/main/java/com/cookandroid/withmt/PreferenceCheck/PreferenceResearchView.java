@@ -47,7 +47,7 @@ public class PreferenceResearchView extends AppCompatActivity {
 
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
 
-        Preference p = new Preference("0","0","0","0","1","1");
+        Preference p = new Preference("0.33","0.25","0.25","0","1","1");
 
         //기본 setting(응답안하고 앱 종료시 기본값 입력)
         Call<Preference> call = ApiClient.getApiService().putPreference(p);
