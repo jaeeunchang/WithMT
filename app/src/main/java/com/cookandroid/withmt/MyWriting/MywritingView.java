@@ -21,6 +21,8 @@ import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.BoardDetail.BoardDetailView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,6 +58,7 @@ public class MywritingView extends AppCompatActivity {
                     Log.d("Tag", String.valueOf(response.code()));
 
                     List<MyWritingResponse> array = response.body();
+                    Collections.reverse(array);
                     ArrayList<String> titleList = new ArrayList<>();
 
                     if(array.size()==0){
