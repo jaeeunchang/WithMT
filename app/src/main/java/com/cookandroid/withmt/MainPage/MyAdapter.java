@@ -34,12 +34,12 @@ class MyAdapter extends BaseAdapter implements Filterable{
 
     @Override
     public int getCount() {
-        return li.size();
+        return li_search.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return li.get(position);
+        return li_search.get(position);
     }
 
     @Override
@@ -54,7 +54,7 @@ class MyAdapter extends BaseAdapter implements Filterable{
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inf.inflate(R.layout.main_list, null);
+            convertView = inf.inflate(R.layout.main_list, parent, false);
         }
 
         TextView title = (TextView) convertView.findViewById(R.id.title);
@@ -65,7 +65,7 @@ class MyAdapter extends BaseAdapter implements Filterable{
         TextView imoji = (TextView) convertView.findViewById(R.id.user_icon);
         TextView nickname = (TextView) convertView.findViewById(R.id.user);
 
-        MainPageView.WritingList w = li.get(position);
+        MainPageView.WritingList w = li_search.get(position);
         title.setText(w.title);
         date.setText(w.date);
         gender.setText(w.gender);
@@ -90,13 +90,13 @@ class MyAdapter extends BaseAdapter implements Filterable{
             FilterResults results = new FilterResults();
 
             if(constraint == null || constraint.length() == 0) {
-                results.values = li_search;
-                results.count = li_search.size();
+                results.values = li;
+                results.count = li.size();
             } else {
                 ArrayList<MainPageView.WritingList> li_item = new ArrayList<MainPageView.WritingList>();
 
-                for(MainPageView.WritingList w : li_search) {
-                    Log.d("Tag", "getTitle"+w.getTitle());
+                for(MainPageView.WritingList w : li) {
+//                    Log.d("Tag", "getTitle"+w.getTitle());
                     if(w.getTitle().toUpperCase().contains(constraint.toString().toUpperCase())) {
                         li_item.add(w);
                     }
@@ -110,7 +110,7 @@ class MyAdapter extends BaseAdapter implements Filterable{
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            li = (ArrayList<MainPageView.WritingList>) results.values;
+            li_search = (ArrayList<MainPageView.WritingList>) results.values;
             if(results.count > 0) {
                 notifyDataSetChanged();
             } else {

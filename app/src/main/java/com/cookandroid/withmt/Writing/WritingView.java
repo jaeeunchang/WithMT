@@ -173,7 +173,7 @@ public class WritingView extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(Call<String> call, Throwable t) {
-
+                                        Log.d("Tag", String.valueOf(t));
                                     }
                                 });
                     }
@@ -208,9 +208,6 @@ public class WritingView extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }
-                                    else{
-                                        Log.d("Tag", String.valueOf(response.code()));
-                                    }
                                 }
 
                                 @Override
@@ -222,9 +219,6 @@ public class WritingView extends AppCompatActivity {
                 }
             });
         }
-
-
-
     }
 
     @Override

@@ -242,28 +242,7 @@ public class MainPageView extends AppCompatActivity {
         search_li = new ArrayList<WritingList>();
         search_li.addAll(li);
 
-        //검색 기능
-        edit_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable edit) {
-                String search = edit.toString();
-//                String search = edit_search.getText().toString();
-//                lv_board.setAdapter(adapter).filter(search);
-//                adapter.filter(search);
-//                lv_board.setAdapter(adapter);
-                ((MyAdapter) lv_board.getAdapter()).getFilter().filter(search);
-            }
-        });
 
         btn_mypage.setOnClickListener(new View.OnClickListener() {
             @Override

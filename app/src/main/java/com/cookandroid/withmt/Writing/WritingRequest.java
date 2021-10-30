@@ -11,17 +11,17 @@ public class WritingRequest {
     private String link;
     @SerializedName("content")
     private String content;
-    @SerializedName("gender")
-    private int gender;
+    @SerializedName("boardGender")
+    private int boardGender;
     @SerializedName("date")
     private String date;
 
-    public WritingRequest(String title, int member, String link, String content, int gender, String date){
+    public WritingRequest(String title, int member, String link, String content, int boardGender, String date){
         this.title = title;
         this.member = member;
         this.link = link;
         this.content = content;
-        this.gender = gender;
+        this.boardGender = boardGender;
         this.date = date;
     }
 }
