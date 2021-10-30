@@ -216,53 +216,28 @@ public class MainPageView extends AppCompatActivity {
             }
         });
 
-        Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                filter_date.setVisibility(View.VISIBLE);
-                filter_date.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-            }
-        }, mYear, mMonth, mDay);
-
-        //datepicker 초기화 버튼
-        datePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "초기화", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                filter_date.setVisibility(View.INVISIBLE);
-                filter_date.setText("2021-00-00");
-            }
-        });
-
-        search_li = new ArrayList<WritingList>();
-        search_li.addAll(li);
-
         //검색 기능
-        edit_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable edit) {
-                String search = edit.toString();
-//                String search = edit_search.getText().toString();
-//                lv_board.setAdapter(adapter).filter(search);
-//                adapter.filter(search);
-//                lv_board.setAdapter(adapter);
-                ((MyAdapter) lv_board.getAdapter()).getFilter().filter(search);
-            }
-        });
+//        edit_search.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable edit) {
+//                String search = edit.toString();
+////                String search = edit_search.getText().toString();
+////                lv_board.setAdapter(adapter).filter(search);
+////                adapter.filter(search);
+////                lv_board.setAdapter(adapter);
+//                ((MyAdapter) lv_board.getAdapter()).getFilter().filter(search);
+//            }
+//        });
 
         btn_mypage.setOnClickListener(new View.OnClickListener() {
             @Override
