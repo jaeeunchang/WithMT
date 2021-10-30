@@ -5,19 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.R;
+import com.cookandroid.withmt.BoardDetail.BoardDetailView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,35 +48,54 @@ public class MywritingView extends AppCompatActivity {
         LinearLayout nothingList = (LinearLayout) findViewById(R.id.nothingList);
 
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-        userid = userinfo.getString("inputId", "");
+        userid = userinfo.getString("inputId", "x");
 
         Call<List<MyWritingResponse>> call = ApiClient.getApiService().getMyWriting(userid);
         call.enqueue(new Callback<List<MyWritingResponse>>() {
             @Override
             public void onResponse(Call<List<MyWritingResponse>> call, Response<List<MyWritingResponse>> response) {
                 if(response.isSuccessful()){
-                    Log.d("Tag", String.valueOf(response.headers()));
-                    Log.d("Tag", String.valueOf(response.body()));
-
-                    nothingList.setVisibility(View.GONE);
-                    myList.setVisibility(View.VISIBLE);
+                    Log.d("Tag", String.valueOf(response.code()));
 
                     List<MyWritingResponse> array = response.body();
-                    ArrayList<String> listItem = new ArrayList<>();
+                    Collections.reverse(array);
+                    ArrayList<String> titleList = new ArrayList<>();
+
+                    if(array.size()==0){
+                        nothingList.setVisibility(View.VISIBLE);
+                        myList.setVisibility(View.GONE);
+                    }
+                    else{
+                        nothingList.setVisibility(View.GONE);
+                        myList.setVisibility(View.VISIBLE);
+                    }
 
                     for(MyWritingResponse re : array){
-                        listItem.add(re.getTitle());
+                        titleList.add(re.getTitle());
                     }
-                    adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listItem);
+                    adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, titleList);
                     myList.setAdapter(adapter);
+                    myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Log.d("Tag", String.valueOf(array.get(position).getBoardId()));
+                            Intent intent = new Intent(getApplicationContext(), BoardDetailView.class);
+                            intent.putExtra("boardId", array.get(position).getBoardId());
+                            startActivity(intent);
+                        }
+                    });
                 }
                 else{
-                    Log.d("Tag", String.valueOf(response.headers()));
+                    Log.d("Tag", String.valueOf(response.code()));
+                    nothingList.setVisibility(View.VISIBLE);
+                    myList.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<List<MyWritingResponse>> call, Throwable t) {
+                nothingList.setVisibility(View.VISIBLE);
+                myList.setVisibility(View.GONE);
                 Log.e("Tag", String.valueOf(t));
             }
         });

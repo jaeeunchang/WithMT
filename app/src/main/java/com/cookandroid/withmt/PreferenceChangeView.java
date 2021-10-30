@@ -14,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.MyPage.MyPageView;
 import com.cookandroid.withmt.PreferenceCheck.Preference;
 
@@ -66,7 +65,6 @@ public class PreferenceChangeView extends AppCompatActivity {
         CheckBox cb_hiking = (CheckBox) findViewById(R.id.cb_hiking);
 
         Button btn_change = (Button) findViewById(R.id.btn_change);
-
 
         Preference p = new Preference("0","0","0","0","1","1");
 
@@ -164,14 +162,13 @@ public class PreferenceChangeView extends AppCompatActivity {
 
                     preference = new Preference(p.getClimbingLevel(),p.getDifficulty(),p.getExercise(),p.getFrequency(),p.getFriendship(),p.getClimbingMate());
 
-                    Log.d("Tag","첫설문조사"+preference);
-                    Log.d("Tag", "설문조사 call 보내기 전");
-                    ApiClient.test();
+//                    Log.d("Tag", "설문조사 call 보내기 전");
+//                    ApiClient.test();
 
                     Call<Preference> call = ApiClient.getApiService().putPreference(preference);
 
-                    Log.d("Tag", "설문조사 call 보낸 후");
-                    ApiClient.test();
+//                    Log.d("Tag", "설문조사 call 보낸 후");
+//                    ApiClient.test();
 
                     call.enqueue(new Callback<Preference>() {
                         @Override
@@ -199,12 +196,12 @@ public class PreferenceChangeView extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case android.R.id.home:
-//                finish();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

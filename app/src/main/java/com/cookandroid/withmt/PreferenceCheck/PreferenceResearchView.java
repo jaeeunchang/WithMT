@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.withmt.ApiClient;
+import com.cookandroid.withmt.Login.LoginView;
 import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.SignUp.SignupView;
@@ -72,6 +73,31 @@ public class PreferenceResearchView extends AppCompatActivity {
         Button btn_submit = (Button) findViewById(R.id.btn_submit);
 
         Preference p = new Preference("0","0","0","0","1","1");
+
+        Log.d("Tag", "설문조사 call 보내기 전");
+        ApiClient.test();
+
+        Call<Preference> call = ApiClient.getApiService().putPreference(p);
+
+        Log.d("Tag", "설문조사 call 보낸 후");
+        ApiClient.test();
+
+        call.enqueue(new Callback<Preference>() {
+            @Override
+            public void onResponse(Call<Preference> call, Response<Preference> response) {
+                if(!response.isSuccessful()) {
+                    Log.d("Tag", "설문조사 응답코드: "+response.code());
+                    return;
+                }
+                Log.d("Tag", "설문조사 응답코드: "+response.code());
+                Log.d("Tag", "response.body: "+response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<Preference> call, Throwable t) {
+                Log.d("Tag", "에러 코드: "+t.getMessage());
+            }
+        });
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,8 +231,18 @@ public class PreferenceResearchView extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginView.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

@@ -22,6 +22,7 @@ import com.cookandroid.withmt.MainPage.MainPageView;
 import com.cookandroid.withmt.PreferenceChangeView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Login.LoginView;
+import com.cookandroid.withmt.SplashActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +30,9 @@ import retrofit2.Response;
 
 public class MyPageView extends AppCompatActivity {
 
-    Dialog logout_dialog, logout_dialog2;
+    Dialog logout_dialog, logout_dialog2, withdrawal_dialog, withdrawal_dialog2;
     TextView user_icon, user_nickname, user_info;
-    Button btn_back;
+    Button btn_back, btn_delete;
     LinearLayout writing_history, change_preference, logout;
     String userid, userpw;
 
@@ -41,6 +42,7 @@ public class MyPageView extends AppCompatActivity {
         setContentView(R.layout.mypage);
 
         Button btn_back = (Button) findViewById(R.id.btn_back);
+        Button btn_withdrawal = (Button) findViewById(R.id.btn_withdrawal);
         TextView user_icon = (TextView) findViewById(R.id.user_icon);
         TextView user_nickname = (TextView) findViewById(R.id.user_nickname);
         TextView user_info = (TextView) findViewById(R.id.user_info);
@@ -53,17 +55,22 @@ public class MyPageView extends AppCompatActivity {
         logout_dialog.setContentView(R.layout.logout_dialog);
 
         logout_dialog2 = new Dialog(MyPageView.this);
-        logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 제거
+        logout_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         logout_dialog2.setContentView(R.layout.logout_dialog2);
+
+        withdrawal_dialog = new Dialog(MyPageView.this);
+        withdrawal_dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        withdrawal_dialog.setContentView(R.layout.withdrawal_dialog);
+
+        withdrawal_dialog2 = new Dialog(MyPageView.this);
+        withdrawal_dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        withdrawal_dialog2.setContentView(R.layout.withdrawal_dialog);
 
         SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
         userid = userinfo.getString("inputId", "none");
 
+        //사용자 정보 호출
         Call<MyInfo> call = ApiClient.getApiService().getUserInfo(userid);
-
-        //Log.d("Tag", "마이페이지call 보낸 후");
-//        ApiClient.test();
-
         call.enqueue(new Callback<MyInfo>() {
             @Override
             public void onResponse(Call<MyInfo> call, Response<MyInfo> response) {
@@ -83,7 +90,6 @@ public class MyPageView extends AppCompatActivity {
                 Integer friendship_server = info.getFriendship();
                 Integer climbingmate_server = info.getClimbingMate();
                 Double level_server = info.getClimbingLevel();
-
 
                 //이모지 변환
                 String imoji = "";
@@ -169,12 +175,18 @@ public class MyPageView extends AppCompatActivity {
             }
         });
 
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainPageView.class);
                 startActivity(intent);
+            }
+        });
+
+        btn_withdrawal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                show_withdrawal_dialog();
             }
         });
 
@@ -219,11 +231,10 @@ public class MyPageView extends AppCompatActivity {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Tag", "로그아웃 보내기 전");
-                ApiClient.test();
+//                Log.d("Tag", "로그아웃 보내기 전");
+//                ApiClient.test();
 
                 Call<String> call = ApiClient.getApiService().postLogout();
-
                 call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -255,9 +266,69 @@ public class MyPageView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout_dialog2.dismiss(); // 다이얼로그 닫기
-                Log.d("Tag","userid값 확인1: "+userid);
                 goToLogin();
-                Log.d("Tag","userid값 확인2: "+userid);
+
+                SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLogin = userinfo.edit();
+                autoLogin.clear();
+                autoLogin.commit();
+            }
+        });
+    }
+
+    public void show_withdrawal_dialog() {
+        withdrawal_dialog.show();
+        withdrawal_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button btn_no = withdrawal_dialog.findViewById(R.id.btn_no);
+        Button btn_yes = withdrawal_dialog.findViewById(R.id.btn_yes);
+
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                withdrawal_dialog.dismiss(); // 다이얼로그 닫기
+            }
+        });
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<String> call = ApiClient.getApiService().deleteUser(userid);
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(!response.isSuccessful()) {
+                            Log.d("Tag", "탈퇴 실패 코드: "+response.code());
+                        }
+                        Log.d("Tag", "탈퇴 성공 코드: "+response.code());
+                        Log.d("Tag", "탈퇴 response: "+response.body());
+                        withdrawal_dialog.dismiss(); // 다이얼로그 닫기
+                        show_withdrawal_dialog2();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("Tag", "탈퇴 에러 코드: "+t.getMessage());
+                    }
+                });
+
+            }
+        });
+    }
+
+    public void show_withdrawal_dialog2() {
+        withdrawal_dialog2.show();
+        withdrawal_dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        Button btn_yes = withdrawal_dialog2.findViewById(R.id.btn_yes);
+
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                withdrawal_dialog2.dismiss(); // 다이얼로그 닫기
+                Log.d("Tag","delete userid값 확인1: "+userid);
+                goToLogin();
+                Log.d("Tag","delete userid값 확인2: "+userid);
 
                 SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor autoLogin = userinfo.edit();
@@ -268,7 +339,9 @@ public class MyPageView extends AppCompatActivity {
     }
 
     public void goToLogin(){
-        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+//        Intent intent = new Intent(getApplicationContext(), LoginView.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="320dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:backgroundTint="#ffffff"
+    android:background="@drawable/edge_radius2">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dp"
+        android:textColor="#000000"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="회원탈퇴가 완료되었습니다." />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="6dp"
+        android:textColor="#808080"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:text="그동안 위드마운틴을 이용해주셔서 감사합니다." />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp">
+
+        <Button
+            android:id="@+id/btn_yes"
+            android:layout_width="94dp"
+            android:layout_height="53dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/edge_radius2"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="확인" />
+    </RelativeLayout>
+</LinearLayout>

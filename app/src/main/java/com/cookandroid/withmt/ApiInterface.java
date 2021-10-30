@@ -1,28 +1,28 @@
 package com.cookandroid.withmt;
 
-import com.cookandroid.withmt.MainPage.MainList;
-import com.cookandroid.withmt.MyPage.Logout;
+import com.cookandroid.withmt.MainPage.BoardResponse;
 import com.cookandroid.withmt.MyPage.MyInfo;
 import com.cookandroid.withmt.MyWriting.MyWritingResponse;
 import com.cookandroid.withmt.PreferenceCheck.Preference;
 
 import java.util.List;
+import java.util.Map;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import com.cookandroid.withmt.Login.LoginRequest;
 import com.cookandroid.withmt.SignUp.SignUpRequest;
 import com.cookandroid.withmt.SignUp.SignUpResponse;
-import com.google.gson.JsonObject;
+import com.cookandroid.withmt.BoardDetail.BoardDetailResponse;
 import com.cookandroid.withmt.Writing.WritingRequest;
+import com.cookandroid.withmt.Writing.WritingView;
 
 public interface ApiInterface {
     // 로그인
@@ -57,18 +57,32 @@ public interface ApiInterface {
 //    Call<List<MainList>> getAll();
 
     @GET("board")
-    Call<MainList> getAll();
+    Call<List<BoardResponse>> getAll();
 
     //게시글 추천순 불러오기
     @GET("board/recommend")
-//    Call<List<MainList>> getRecommend();
-    Call<MainList> getRecommend();
+    Call<List<BoardResponse>> getRecommend();
 
     //게시글 작성
     @POST("board/write")
-    Call<String> postWriting(@Body WritingRequest writingRequest);
+    Call<Integer> postWriting(@Body WritingRequest writingRequest);
 
     //마이페이지-글 조회
     @GET("board")
     Call<List<MyWritingResponse>> getMyWriting(@Query("userId") String userid);
+
+    @DELETE("users")
+    Call<String> deleteUser(@Query("userId") String userId);
+
+    //게시글 상세 조회
+    @GET("board/{boardId}")
+    Call<List<BoardDetailResponse>> getBoard(@Path("boardId") int boardId);
+
+    //게시글 삭제
+    @DELETE("board/{boardId}")
+    Call<String> deleteBoard(@Path("boardId") int boardId);
+
+    //게시글 수정
+    @PUT("board/update/{boardId}")
+    Call<String> putBoard(@Path("boardId") int boardId, @Body WritingRequest writingRequest);
 }

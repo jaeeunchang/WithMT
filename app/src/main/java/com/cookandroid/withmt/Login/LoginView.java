@@ -45,6 +45,14 @@ public class LoginView extends AppCompatActivity {
         edPW = (EditText) findViewById(R.id.editPW);
 
         imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+
+        //자동 로그인
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        userid = userinfo.getString("inputId", null);
+        userpw = userinfo.getString("inputPW", null);
+        if(userid != null && userpw != null){
+            goToMain();
+        }
     }
 
     // 배경 클릭 시 키보드 숨김
@@ -60,7 +68,6 @@ public class LoginView extends AppCompatActivity {
             case R.id.btnSignup:
                 intent = new Intent(getApplicationContext(), SignupView.class);
                 startActivity(intent);
-                finish();
                 break;
 
             //로그인 클릭 시

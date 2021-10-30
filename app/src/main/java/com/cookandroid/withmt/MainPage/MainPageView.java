@@ -2,32 +2,28 @@ package com.cookandroid.withmt.MainPage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cookandroid.withmt.ApiClient;
-import com.cookandroid.withmt.MyPage.MyInfo;
 import com.cookandroid.withmt.MyPage.MyPageView;
 import com.cookandroid.withmt.R;
 import com.cookandroid.withmt.Writing.WritingView;
+import com.cookandroid.withmt.BoardDetail.BoardDetailView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,12 +35,14 @@ import retrofit2.Response;
 
 public class MainPageView extends AppCompatActivity {
 
+    MyAdapter adapter;
     Button btn_mypage, btn_menu, btn_write;
+    EditText edit_search;
     Spinner menu_spinner;
     TextView filter_date;
     DatePickerDialog datePickerDialog;
-    ArrayList<WritingList> li;
-    ListView lv;
+    ArrayList<WritingList> li, search_li;
+    ListView lv_board;
     String userid, userpw;
 
     @Override
@@ -52,94 +50,172 @@ public class MainPageView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
-//        userid = userinfo.getString("inputId", "none");
-//        userpw = userinfo.getString("inputPW", "none");
-
-//        Log.d("Tag", "메인페이지");
-//        Log.d("Tag","userid값 확인5: "+userid);
-//        Log.d("Tag","userpw 확인5: "+userpw);
-//        ApiClient.test();
-
-
         li = new ArrayList<WritingList>();
-//        li.add(new WritingList("여러분 등산 같이갑시다요 산행은 즐거워 참여하세요","2021-10-14",0,"BEAR","18장재은"));
 
-        MyAdapter adapter = new MyAdapter(getApplicationContext(), R.layout.main_list, li);
-        ListView lv = (ListView) findViewById(R.id.lv);
-        lv.setAdapter(adapter);
+        adapter = new MyAdapter(getApplicationContext(), R.layout.main_list, li);
+        ListView lv_board = (ListView) findViewById(R.id.lv_board);
 
-
+        EditText edit_search = (EditText) findViewById(R.id.edit_search);
+        TextView filter_date = (TextView) findViewById(R.id.filter_date);
         Button btn_mypage = (Button) findViewById(R.id.btn_mypage);
         Button btn_search = (Button) findViewById(R.id.btn_search);
         Button btn_calendar = (Button) findViewById(R.id.btn_calendar);
         Button btn_write = (Button) findViewById(R.id.btn_write);
 
+        //스피너 setting
         Spinner menu_spinner = (Spinner) findViewById(R.id.menu_spinner);
-        TextView filter_date = (TextView) findViewById(R.id.filter_date);
-
-        //userid값 넘겨받기
-//        SharedPreferences userinfo = getSharedPreferences("userinfo", MODE_PRIVATE);
-//        userid = userinfo.getString("inputId", "none");
-//        userpw = userinfo.getString("inputPW", "엥");
-//        Toast.makeText(getApplicationContext(), "userid:"+userid+", userpw:"+userpw, Toast.LENGTH_LONG).show();
+        String[] list = getResources().getStringArray(R.array.main_menu);
+        menu_spinner.setSelection(0);
 
 
-        String select_menu = menu_spinner.getSelectedItem().toString();
-        if(select_menu == "추천순") {
-            //추천순 GET
+        menu_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //추천순 선택시
+                if (list[i].equals("추천순")) {
+//                    Toast.makeText(getApplicationContext(), list[i] + " 선택되었습니다", Toast.LENGTH_SHORT).show();
 
-//            Call<MainList> call =  ApiClient.getApiService().getRecommend();
-//            call.enqueue(new Callback<MainList>() {
-//                @Override
-//                public void onResponse(Call<MainList> call, Response<MainList> response) {
-//                    if(!response.isSuccessful()) {
-//                        Log.d("TagMain", String.valueOf(response.headers()));
-//                        Toast.makeText(getApplicationContext(), "code"+response.code(), Toast.LENGTH_LONG).show();
-//                        return;
-//                    }
-//                    MainList list = response.body();
-//                    Log.d("TagMain", String.valueOf(response.headers()));
-//
-//                    //서버 데이터 받아오기
-//                    String title_server = list.getBoard().getTitle();
-//                    String date_server = list.getBoard().getTitle();
-//                    Integer gender_server = list.getBoard().getGender();
-//                    String imoji_server = list.getUser().getImoji();
-//                    String nickname_server = list.getUser().getNickname();
-//
-//                    //성별 값 텍스트로 변환
-//                    String gender = "";
-//                    if(gender_server == 0) {
-//                        gender = "남";
-//                    } else if(gender_server == 1) {
-//                        gender = "여";
-//                    } else if(gender_server == 2) {
-//                        gender = "상관없음";
-//                    }
-//
-//                    //이모지 변환
-//                    String imoji = "";
-//                    if(imoji_server == "BEAR") {
-//                        imoji = "🐻";
-//                    } else if(imoji_server == "TIGER") {
-//                        imoji = "🐯";
-//                    } else if(imoji_server == "RABBIT") {
-//                        imoji = "🐰";
-//                    } else if(imoji_server == "FOX") {
-//                        imoji = "🦊";
-//                    }
-//
-//                    li.add(new WritingList(title_server,date_server, gender, imoji, nickname_server));
-//                }
-//                @Override
-//                public void onFailure(Call<MainList> call, Throwable t) {
-//                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-//                }
-//            });
-        } else if(select_menu == "최신순") {
-            //최신순 GET
-        }
+                    Call<List<BoardResponse>> call = ApiClient.getApiService().getRecommend();
+                    call.enqueue(new Callback<List<BoardResponse>>() {
+                        @Override
+                        public void onResponse(Call<List<BoardResponse>> call, Response<List<BoardResponse>> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("TagMain", String.valueOf(response.code()));
+                                return;
+                            }
+//                            Log.d("TagMain", String.valueOf(response.code()));
+//                            Log.d("Tag","추천순: "+response.body());
+
+                            List<BoardResponse> list = response.body();
+                            li.clear();
+                            adapter.notifyDataSetChanged();
+
+                            for (BoardResponse board : list) {
+                                //서버 데이터 받아오기
+                                Integer boardId = board.getBoardId();
+                                String title_server = board.getTitle();
+                                String date_server = board.getDate();
+                                Integer gender_server = board.getGender();
+                                String imoji_server = board.getImoji();
+                                String nickname_server = board.getNickname();
+
+                                //성별 값 텍스트로 변환
+                                String gender = "";
+                                if (gender_server == 0) {
+                                    gender = "남자만";
+                                } else if (gender_server == 1) {
+                                    gender = "여자만";
+                                } else if (gender_server == 2) {
+                                    gender = "상관없음";
+                                }
+
+                                //이모지 변환
+                                String imoji = "";
+                                if (imoji_server.equals("BEAR")) {
+                                    imoji = "🐻";
+                                } else if (imoji_server.equals("TIGER")) {
+                                    imoji = "🐯";
+                                } else if (imoji_server.equals("RABBIT")) {
+                                    imoji = "🐰";
+                                } else if (imoji_server.equals("FOX")) {
+                                    imoji = "🦊";
+                                } else {
+                                    imoji = "😊";
+                                }
+                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server));
+                                lv_board.setAdapter(adapter);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
+                            Log.d("TagMain", t.getMessage());
+
+                        }
+                    });
+
+                    //최신순 선택시
+                } else if (list[i].equals("최신순")) {
+//                    Toast.makeText(getApplicationContext(), list[i] + " 선택되었습니다", Toast.LENGTH_SHORT).show();
+                    Call<List<BoardResponse>> call = ApiClient.getApiService().getAll();
+                    call.enqueue(new Callback<List<BoardResponse>>() {
+                        @Override
+                        public void onResponse(Call<List<BoardResponse>> call, Response<List<BoardResponse>> response) {
+                            if (!response.isSuccessful()) {
+                                Log.d("TagMain", String.valueOf(response.code()));
+                                return;
+                            }
+//                            Log.d("TagMain", String.valueOf(response.code()));
+//                            Log.d("Tag","최신순: "+response.body());
+
+                            List<BoardResponse> list = response.body();
+                            li.clear();
+                            adapter.notifyDataSetChanged();
+
+                            for (BoardResponse board : list) {
+                                //서버 데이터 받아오기
+                                Integer boardId = board.getBoardId();
+                                String title_server = board.getTitle();
+                                String date_server = board.getDate();
+                                Integer gender_server = board.getGender();
+                                String imoji_server = board.getImoji();
+                                String nickname_server = board.getNickname();
+
+                                //성별 값 텍스트로 변환
+                                String gender = "";
+                                if (gender_server == 0) {
+                                    gender = "남자만";
+                                } else if (gender_server == 1) {
+                                    gender = "여자만";
+                                } else if (gender_server == 2) {
+                                    gender = "상관없음";
+                                }
+
+                                //이모지 변환
+                                String imoji = "";
+                                if (imoji_server.equals("BEAR")) {
+                                    imoji = "🐻";
+                                } else if (imoji_server.equals("TIGER")) {
+                                    imoji = "🐯";
+                                } else if (imoji_server.equals("RABBIT")) {
+                                    imoji = "🐰";
+                                } else if (imoji_server.equals("FOX")) {
+                                    imoji = "🦊";
+                                } else {
+                                    imoji = "😊";
+                                }
+
+                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server));
+                                lv_board.setAdapter(adapter);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
+                            Log.d("TagMain", t.getMessage());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(getApplicationContext(), "아무것도 선택되지 않았습니다.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        lv_board.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 다음넘어갈 화면
+                Intent intent = new Intent(getApplicationContext(), BoardDetailView.class);
+
+                //boardId값 넘기기
+                intent.putExtra("boardId", li.get(position).boardId);
+
+                startActivity(intent);
+            }
+        });
 
         Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
@@ -149,17 +225,24 @@ public class MainPageView extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                filter_date.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                filter_date.setVisibility(View.VISIBLE);
+                filter_date.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
             }
         }, mYear, mMonth, mDay);
 
-        //datepicker에 초기화 버튼 추가
+        //datepicker 초기화 버튼
         datePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "초기화", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                filter_date.setVisibility(View.INVISIBLE);
                 filter_date.setText("2021-00-00");
             }
         });
+
+        search_li = new ArrayList<WritingList>();
+        search_li.addAll(li);
+
+
 
         btn_mypage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,78 +268,70 @@ public class MainPageView extends AppCompatActivity {
         });
     }
 
-    class WritingList {
-        String title = "";
-        String date = "";
+    public class WritingList {
+        Integer boardId;
+        String nickname;
+        String imoji;
+        String title;
+        String date;
         String gender;
-        String imoji = "";
-        String nickname = "";
 
-        public WritingList(String title, String date, String gender, String imoji ,String nickname ) {
+        public Integer getBoardId() {
+            return boardId;
+        }
+
+        public void setBoardId(Integer boardId) {
+            this.boardId = boardId;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getImoji() {
+            return imoji;
+        }
+
+        public void setImoji(String imoji) {
+            this.imoji = imoji;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public WritingList(Integer boardId, String title, String date, String gender, String imoji, String nickname) {
             super();
+            this.boardId = boardId;
             this.title = title;
             this.date = date;
             this.gender = gender;
             this.imoji = imoji;
             this.nickname = nickname;
         }
-
-        public WritingList() {
-        }
     }
-
-
-    class MyAdapter extends BaseAdapter {
-        Context context;
-        int layout;
-        ArrayList<WritingList> li;
-        LayoutInflater inf;
-
-        public MyAdapter(Context context, int layout, ArrayList<WritingList> li) {
-            this.context = context;
-            this.layout = layout;
-            this.li = li;
-            inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return li.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return li.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = inf.inflate(layout, null);
-            }
-
-            TextView title = (TextView) convertView.findViewById(R.id.title);
-            ImageView calender_icon = (ImageView) convertView.findViewById(R.id.calender_icon);
-            TextView date = (TextView) convertView.findViewById(R.id.date);
-            TextView gender_info = (TextView) convertView.findViewById(R.id.gender_info);
-            TextView gender = (TextView) convertView.findViewById(R.id.gender);
-            TextView imoji = (TextView) convertView.findViewById(R.id.user_icon);
-            TextView nickname = (TextView) convertView.findViewById(R.id.user);
-
-            WritingList w = li.get(position);
-            title.setText(w.title);
-            title.setText(w.date);
-            title.setText(w.gender);
-            title.setText(w.imoji);
-            title.setText(w.nickname);
-
-            return convertView;
-        }
-    }
-
 }

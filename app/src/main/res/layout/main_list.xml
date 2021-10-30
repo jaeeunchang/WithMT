@@ -8,7 +8,9 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="10dp"
         android:text="제목입니다 여러분 등산 같이갑시다요 산행은 즐거워 참여하세요"
         android:textStyle="bold"
         android:textSize="20dp"
@@ -19,7 +21,8 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_below="@+id/title"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
         android:src="@drawable/ic_calendar_color" />
 
     <TextView
@@ -28,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_toRightOf="@+id/calender_icon"
-
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="4dp"
         android:textColor="#000"
         android:textSize="16dp"
@@ -40,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/calender_icon"
         android:layout_marginTop="6dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:textColor="#000"
         android:textSize="16dp"
         android:text="성별 : "/>
@@ -61,8 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/gender_info"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
         android:textColor="#000"
         android:textSize="16dp"
         android:text="🐰"/>
@@ -73,10 +76,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/gender_info"
         android:layout_toRightOf="@+id/user_icon"
-        android:layout_margin="2dp"
+        android:layout_margin="6dp"
         android:textColor="#000"
         android:textSize="16dp"
-        android:textStyle="bold"
+
         android:text="사용자"/>
 
 </RelativeLayout>
