@@ -116,11 +116,4 @@ public class LoginView extends AppCompatActivity {
         edId.setBackgroundResource(R.drawable.et_error);
         edPW.setBackgroundResource(R.drawable.et_error);
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("Tag", "Destroy");
-        ApiClient.test();
-    }
 }
