@@ -23,6 +23,7 @@ public class BoardResponse {
 
     public String toString() {
         return "BoardResponse{" +
+                ", updateTime=" + updateTime +
                 ", boardId=" + boardId +
                 "nickname=" + nickname +
                 ", gender=" + gender +
