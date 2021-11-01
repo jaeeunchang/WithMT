@@ -34,12 +34,12 @@ class MyAdapter extends BaseAdapter implements Filterable{
 
     @Override
     public int getCount() {
-        return li_search.size();
+        return li.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return li_search.get(position);
+        return li.get(position);
     }
 
     @Override
@@ -65,7 +65,7 @@ class MyAdapter extends BaseAdapter implements Filterable{
         TextView imoji = (TextView) convertView.findViewById(R.id.user_icon);
         TextView nickname = (TextView) convertView.findViewById(R.id.user);
 
-        MainPageView.WritingList w = li_search.get(position);
+        MainPageView.WritingList w = li.get(position);
         title.setText(w.title);
         date.setText(w.date);
         gender.setText(w.gender);
@@ -102,15 +102,15 @@ class MyAdapter extends BaseAdapter implements Filterable{
                     }
                 }
 
-                results.values = li_item;
-                results.count = li_item.size();
+                results.values = li;
+                results.count = li.size();
             }
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            li_search = (ArrayList<MainPageView.WritingList>) results.values;
+            li = (ArrayList<MainPageView.WritingList>) results.values;
             if(results.count > 0) {
                 notifyDataSetChanged();
             } else {

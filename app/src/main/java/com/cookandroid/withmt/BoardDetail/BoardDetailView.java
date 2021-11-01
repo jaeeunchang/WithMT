@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -35,6 +37,7 @@ public class BoardDetailView extends AppCompatActivity {
     Dialog CheckDel;
     Uri uri;
     int boardid;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +146,8 @@ public class BoardDetailView extends AppCompatActivity {
                             case 6: age = "60대 이상"; break;
                         }
                         userInfo.setText(level+"/"+prefer+"/"+gender+"/"+age);
+
+                        userId = res.get(0).getUser().getUserId();
                     }
                 }
 
@@ -155,8 +160,12 @@ public class BoardDetailView extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.tool_menu, menu);
+        SharedPreferences userinfo = getSharedPreferences("userinfo", Activity.MODE_PRIVATE);
+        String userid = userinfo.getString("inputId", null);
+        if(userid.equals(userId)){
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.tool_menu, menu);
+        }
         return true;
     }
 

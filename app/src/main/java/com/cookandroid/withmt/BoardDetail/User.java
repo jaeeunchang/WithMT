@@ -3,8 +3,8 @@ package com.cookandroid.withmt.BoardDetail;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    @SerializedName("id")
-    private Object id;
+    @SerializedName("userId")
+    private String userId;
     @SerializedName("nickname")
     private String nickname;
     @SerializedName("imoji")
@@ -20,12 +20,12 @@ public class User {
     @SerializedName("climbingLevel")
     private Double climbingLevel;
 
-    public Object getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(Object id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getNickname() {
@@ -87,7 +87,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", nickname='" + nickname + '\'' +
                 ", imoji='" + imoji + '\'' +
                 ", gender=" + gender +
