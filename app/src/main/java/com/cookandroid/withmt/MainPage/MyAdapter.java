@@ -19,9 +19,8 @@ class MyAdapter extends BaseAdapter implements Filterable{
     Context context;
     int layout;
     LayoutInflater inf;
-
-    private ArrayList<MainPageView.WritingList> li = new ArrayList<MainPageView.WritingList>();
-    private ArrayList<MainPageView.WritingList> li_search = li;
+    ArrayList<MainPageView.WritingList> li;
+    ArrayList<MainPageView.WritingList> li_search = li;
     Filter listFilter;
     private Object BoardResponse;
 
@@ -34,12 +33,12 @@ class MyAdapter extends BaseAdapter implements Filterable{
 
     @Override
     public int getCount() {
-        return li_search.size();
+        return li.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return li_search.get(position);
+        return li.get(position);
     }
 
     @Override
@@ -64,13 +63,15 @@ class MyAdapter extends BaseAdapter implements Filterable{
         TextView gender = (TextView) convertView.findViewById(R.id.gender);
         TextView imoji = (TextView) convertView.findViewById(R.id.user_icon);
         TextView nickname = (TextView) convertView.findViewById(R.id.user);
+        TextView update_time = (TextView) convertView.findViewById(R.id.update_time);
 
-        MainPageView.WritingList w = li_search.get(position);
+        MainPageView.WritingList w = li.get(position);
         title.setText(w.title);
         date.setText(w.date);
         gender.setText(w.gender);
         imoji.setText(w.imoji);
         nickname.setText(w.nickname);
+        update_time.setText(w.update_time);
 
         return convertView;
     }
@@ -96,7 +97,6 @@ class MyAdapter extends BaseAdapter implements Filterable{
                 ArrayList<MainPageView.WritingList> li_item = new ArrayList<MainPageView.WritingList>();
 
                 for(MainPageView.WritingList w : li) {
-//                    Log.d("Tag", "getTitle"+w.getTitle());
                     if(w.getTitle().toUpperCase().contains(constraint.toString().toUpperCase())) {
                         li_item.add(w);
                     }

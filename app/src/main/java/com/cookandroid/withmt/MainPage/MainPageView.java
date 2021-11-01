@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.cookandroid.withmt.ApiClient;
 import com.cookandroid.withmt.MyPage.MyPageView;
 import com.cookandroid.withmt.R;
+import com.cookandroid.withmt.SplashActivity;
 import com.cookandroid.withmt.Writing.WritingView;
 import com.cookandroid.withmt.BoardDetail.BoardDetailView;
 
@@ -43,7 +44,6 @@ public class MainPageView extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     ArrayList<WritingList> li, search_li;
     ListView lv_board;
-    String userid, userpw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +56,8 @@ public class MainPageView extends AppCompatActivity {
         ListView lv_board = (ListView) findViewById(R.id.lv_board);
 
         EditText edit_search = (EditText) findViewById(R.id.edit_search);
-        TextView filter_date = (TextView) findViewById(R.id.filter_date);
         Button btn_mypage = (Button) findViewById(R.id.btn_mypage);
         Button btn_search = (Button) findViewById(R.id.btn_search);
-        Button btn_calendar = (Button) findViewById(R.id.btn_calendar);
         Button btn_write = (Button) findViewById(R.id.btn_write);
 
         //스피너 setting
@@ -67,25 +65,18 @@ public class MainPageView extends AppCompatActivity {
         String[] list = getResources().getStringArray(R.array.main_menu);
         menu_spinner.setSelection(0);
 
-
         menu_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //추천순 선택시
                 if (list[i].equals("추천순")) {
-//                    Toast.makeText(getApplicationContext(), list[i] + " 선택되었습니다", Toast.LENGTH_SHORT).show();
-
                     Call<List<BoardResponse>> call = ApiClient.getApiService().getRecommend();
                     call.enqueue(new Callback<List<BoardResponse>>() {
                         @Override
                         public void onResponse(Call<List<BoardResponse>> call, Response<List<BoardResponse>> response) {
                             if (!response.isSuccessful()) {
-                                Log.d("TagMain", String.valueOf(response.code()));
-                                return;
+                                goToLogin();
                             }
-//                            Log.d("TagMain", String.valueOf(response.code()));
-//                            Log.d("Tag","추천순: "+response.body());
-
                             List<BoardResponse> list = response.body();
                             li.clear();
                             adapter.notifyDataSetChanged();
@@ -98,6 +89,7 @@ public class MainPageView extends AppCompatActivity {
                                 Integer gender_server = board.getGender();
                                 String imoji_server = board.getImoji();
                                 String nickname_server = board.getNickname();
+                                String updateTime_server = board.getUpdateTime();
 
                                 //성별 값 텍스트로 변환
                                 String gender = "";
@@ -122,31 +114,27 @@ public class MainPageView extends AppCompatActivity {
                                 } else {
                                     imoji = "😊";
                                 }
-                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server));
+
+                                String update_time = "";
+                                update_time = updateTime_server.substring(5,7)+"/"+updateTime_server.substring(8,16);
+                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server, update_time));
                                 lv_board.setAdapter(adapter);
                             }
                         }
-
                         @Override
                         public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
-                            Log.d("TagMain", t.getMessage());
                         }
                     });
 
                     //최신순 선택시
                 } else if (list[i].equals("최신순")) {
-//                    Toast.makeText(getApplicationContext(), list[i] + " 선택되었습니다", Toast.LENGTH_SHORT).show();
                     Call<List<BoardResponse>> call = ApiClient.getApiService().getAll();
                     call.enqueue(new Callback<List<BoardResponse>>() {
                         @Override
                         public void onResponse(Call<List<BoardResponse>> call, Response<List<BoardResponse>> response) {
                             if (!response.isSuccessful()) {
-                                Log.d("TagMain", String.valueOf(response.code()));
-                                return;
+                                goToLogin();
                             }
-//                            Log.d("TagMain", String.valueOf(response.code()));
-//                            Log.d("Tag","최신순: "+response.body());
-
                             List<BoardResponse> list = response.body();
                             li.clear();
                             adapter.notifyDataSetChanged();
@@ -159,6 +147,7 @@ public class MainPageView extends AppCompatActivity {
                                 Integer gender_server = board.getGender();
                                 String imoji_server = board.getImoji();
                                 String nickname_server = board.getNickname();
+                                String updateTime_server = board.getUpdateTime();
 
                                 //성별 값 텍스트로 변환
                                 String gender = "";
@@ -184,14 +173,16 @@ public class MainPageView extends AppCompatActivity {
                                     imoji = "😊";
                                 }
 
-                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server));
+                                String update_time = "";
+                                update_time = updateTime_server.substring(5,7)+"/"+updateTime_server.substring(8,16);
+
+                                li.add(new WritingList(boardId, title_server, date_server, gender, imoji, nickname_server, update_time));
                                 lv_board.setAdapter(adapter);
                             }
                         }
 
                         @Override
                         public void onFailure(Call<List<BoardResponse>> call, Throwable t) {
-                            Log.d("TagMain", t.getMessage());
                         }
                     });
                 }
@@ -231,10 +222,6 @@ public class MainPageView extends AppCompatActivity {
 //            @Override
 //            public void afterTextChanged(Editable edit) {
 //                String search = edit.toString();
-////                String search = edit_search.getText().toString();
-////                lv_board.setAdapter(adapter).filter(search);
-////                adapter.filter(search);
-////                lv_board.setAdapter(adapter);
 //                ((MyAdapter) lv_board.getAdapter()).getFilter().filter(search);
 //            }
 //        });
@@ -244,13 +231,6 @@ public class MainPageView extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MyPageView.class);
                 startActivity(intent);
-            }
-        });
-
-        btn_calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog.show();
             }
         });
 
@@ -270,6 +250,7 @@ public class MainPageView extends AppCompatActivity {
         String title;
         String date;
         String gender;
+        String update_time;
 
         public Integer getBoardId() {
             return boardId;
@@ -319,7 +300,7 @@ public class MainPageView extends AppCompatActivity {
             this.gender = gender;
         }
 
-        public WritingList(Integer boardId, String title, String date, String gender, String imoji, String nickname) {
+        public WritingList(Integer boardId, String title, String date, String gender, String imoji, String nickname, String update_time) {
             super();
             this.boardId = boardId;
             this.title = title;
@@ -327,6 +308,14 @@ public class MainPageView extends AppCompatActivity {
             this.gender = gender;
             this.imoji = imoji;
             this.nickname = nickname;
+            this.update_time = update_time;
         }
+    }
+
+    public void goToLogin(){
+        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
