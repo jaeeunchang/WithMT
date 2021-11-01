@@ -116,8 +116,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:textSize="30dp"
-                        android:textColor="@color/black" />
+                        android:textColor="#000000"
+                        android:textSize="30dp" />
                     <TextView
                         android:id="@+id/userNic"
                         android:layout_width="wrap_content"
@@ -130,8 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#D87A29"
-                    android:textStyle="bold"
-                    android:text="숙련가/친목 위주/여/40대"/>
+                    android:textStyle="bold" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

@@ -102,15 +102,15 @@ class MyAdapter extends BaseAdapter implements Filterable{
                     }
                 }
 
-                results.values = li_item;
-                results.count = li_item.size();
+                results.values = li;
+                results.count = li.size();
             }
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            li_search = (ArrayList<MainPageView.WritingList>) results.values;
+            li = (ArrayList<MainPageView.WritingList>) results.values;
             if(results.count > 0) {
                 notifyDataSetChanged();
             } else {
