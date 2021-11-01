@@ -79,7 +79,6 @@ public class MainPageView extends AppCompatActivity {
                                 goToLogin();
                             }
                             List<BoardResponse> list = response.body();
-                            Collections.reverse(list);
                             li.clear();
                             adapter.notifyDataSetChanged();
 
