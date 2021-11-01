@@ -28,6 +28,7 @@ import com.cookandroid.withmt.BoardDetail.BoardDetailView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -78,6 +79,7 @@ public class MainPageView extends AppCompatActivity {
                                 goToLogin();
                             }
                             List<BoardResponse> list = response.body();
+                            Collections.reverse(list);
                             li.clear();
                             adapter.notifyDataSetChanged();
 
@@ -136,6 +138,7 @@ public class MainPageView extends AppCompatActivity {
                                 goToLogin();
                             }
                             List<BoardResponse> list = response.body();
+                            Collections.reverse(list);
                             li.clear();
                             adapter.notifyDataSetChanged();
 
