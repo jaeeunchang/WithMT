@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/mypage_bg">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="660dp"
+        android:orientation="vertical"
+        android:backgroundTint="#ffffff"
+        android:elevation="6dp"
+        android:background="@drawable/edge_radius" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:background="@drawable/ic_arrow_back"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="25dp" />
+
+            <Button
+                android:id="@+id/btn_withdrawal"
+                android:layout_width="58dp"
+                android:layout_height="26dp"
+                android:background="@drawable/btn_delete"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="25dp"
+                android:text="탈퇴하기"
+                android:textColor="#d9d9d9"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/user_icon"
+                android:layout_width="100dp"
+                android:layout_height="116dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:textSize="85sp"
+                android:textColor="#000000"
+                android:text="🐥"/>
+
+            <TextView
+                android:id="@+id/user_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="#000000"
+                android:text="홍길동"/>
+
+            <TextView
+                android:id="@+id/user_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:textColor="#D87A29"
+                android:textSize="16sp"
+                android:text="숙련가/친목 위주/여/40대"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="#B6B6B6"/>
+
+        <LinearLayout
+            android:id="@+id/writing_history"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_writing_history" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="내가 작성한 글"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/ic_arrow_noline" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="#B6B6B6"/>
+
+        <LinearLayout
+            android:id="@+id/change_preference"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_change_preference" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="운동능력 및 취향 수정하기"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/ic_arrow_noline"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="#B6B6B6"/>
+
+        <LinearLayout
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_logout" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="로그아웃"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/ic_arrow_noline"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:background="#B6B6B6"/>
+
+    </LinearLayout>
+</LinearLayout>

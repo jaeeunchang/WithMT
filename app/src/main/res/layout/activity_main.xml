@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="32dp">
+
+        <View
+            android:layout_width="300dp"
+            android:layout_height="32dp"
+            android:backgroundTint="#CCE7DB"
+            android:background="@drawable/edge_radius" />
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="250dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="12dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
+            android:backgroundTint="#00ff0000"
+            android:background="@drawable/edge_radius" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:background="@drawable/ic_search"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="88dp" />
+
+        <Button
+            android:id="@+id/btn_mypage"
+            android:background="@drawable/ic_profile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#B6B6B6" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Spinner
+            android:id="@+id/menu_spinner"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/green"
+            android:entries="@array/main_menu" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_board"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFilterEnabled="true"/>
+
+        <Button
+            android:id="@+id/btn_write"
+            android:layout_width="230dp"
+            android:layout_height="46dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/btn_writing"
+            android:drawableLeft="@drawable/ic_writing"
+            android:drawablePadding="-75dp"
+            android:text="글쓰기"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#ffffff" />
+
+    </RelativeLayout>
+</LinearLayout>

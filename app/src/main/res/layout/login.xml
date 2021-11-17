@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bgimg"
+    tools:context=".Login.LoginView"
+    android:onClick="linearOnclick">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <TextView
+            android:layout_marginTop="100dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:text="안녕하세요.\n위드마운틴에 오신 것을 환영합니다." />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center|top"
+        android:layout_weight="2">
+        <EditText
+            android:id="@+id/editId"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:drawableLeft="@drawable/ic_user_solid"
+            android:drawablePadding="15dp"
+            android:background="@drawable/et_st"
+            android:hint="아이디를 입력해주세요."
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/editPW"
+            android:layout_margin="20dp"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:drawableLeft="@drawable/ic_lock_solid"
+            android:drawablePadding="15dp"
+            android:background="@drawable/et_st"
+            android:hint="비밀번호를 입력해주세요."
+            android:inputType="textPassword"
+            android:maxLength="15" />
+        <Button
+            android:id="@+id/btnLogin"
+            android:onClick="onClick"
+            android:layout_marginTop="40dp"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:background="@drawable/button_shape"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="로그인"/>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="위드마운틴이 처음이신가요?"/>
+            <Button
+                android:id="@+id/btnSignup"
+                android:onClick="onClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:text="@string/sign_up"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+</LinearLayout>

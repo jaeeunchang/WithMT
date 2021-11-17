@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cookandroid.withmt">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
+    <application
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="위드마운틴"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.WithMt">
+        <activity android:name=".Login.LoginView" />
+        <activity android:name=".MainPage.MainPageView" />
+        <activity android:name=".PreferenceCheck.PreferenceResearchView" />
+        <activity android:name=".MyPage.MyPageView" />
+        <activity android:name=".PreferenceChangeView" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MyWriting.MywritingView"/>
+        <activity android:name=".SignUp.SignupView"/>
+        <activity android:name=".Writing.WritingView"/>
+        <activity android:name=".BoardDetail.BoardDetailView"/>
+    </application>
+</manifest>

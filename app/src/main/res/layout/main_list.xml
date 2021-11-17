@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_margin="15dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:text="가야산 가실 분 구합니다"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="#000" />
+
+    <ImageView
+        android:id="@+id/calender_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ic_calendar_color" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/calender_icon"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="4dp"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:text="2021-09-28"/>
+
+    <TextView
+        android:id="@+id/gender_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calender_icon"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:text="성별 : "/>
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calender_icon"
+        android:layout_toRightOf="@+id/gender_info"
+        android:layout_marginTop="6dp"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:text="상관없음"/>
+
+    <TextView
+        android:id="@+id/user_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gender_info"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:text="🐰"/>
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gender_info"
+        android:layout_toRightOf="@+id/user_icon"
+        android:layout_margin="6dp"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="사용자"/>
+
+    <TextView
+        android:id="@+id/update_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="14dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="#a9a9a9"
+        android:textSize="16dp"
+        android:text="2021/10/14 15:30"/>
+
+</RelativeLayout>
